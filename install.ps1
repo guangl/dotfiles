@@ -10,10 +10,22 @@ $Repo = "guangl/dotfiles"
 
 # ---- scoop (CLI tools) ------------------------------------------------------
 
-$ScoopBuckets = @()
+$ScoopBuckets = @(
+  "extras"
+  "nerd-fonts"
+)
 
 $ScoopApps = @(
-  # add scoop package names here
+  # required by Documents/PowerShell/Microsoft.PowerShell_profile.ps1 and
+  # the dot_config dotfiles
+  "pwsh"
+  "starship"
+  "atuin"
+  "zellij"
+  "eza"
+  "espanso"
+  "git"
+  "FiraCode-NF-Mono" # nerd font for starship/eza icon glyphs
 )
 
 # ---- winget (GUI apps) ------------------------------------------------------

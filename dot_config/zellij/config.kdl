@@ -314,7 +314,7 @@ default_mode "locked"
 // Choose the path to the default shell that zellij will use for opening new panes
 // Default: $SHELL
 // 
-// default_shell "fish"
+default_shell "C:\\Users\\guang\\scoop\\shims\\pwsh.exe"
  
 // Choose the path to override cwd that zellij will use for opening new panes
 // 
@@ -386,9 +386,8 @@ scroll_buffer_size 10000
 // copy_command "xclip -selection clipboard" // x11
 // copy_command "wl-copy"                    // wayland
 // copy_command "pbcopy"                     // osx
-// 
-copy_command "pbcopy"
- 
+// copy_command "pbcopy" // osx-only, not valid on Windows
+
 // Choose the destination for copied text
 // Allows using the primary selection buffer (on x11/wayland) instead of the system clipboard.
 // Does not apply when using copy_command.
@@ -412,12 +411,12 @@ copy_on_select true
 // otherwise this will error if such a session exists.
 // Default: <RANDOM>
 // 
-// session_name "My singleton session"
- 
+session_name "main"
+
 // When `session_name` is provided, attaches to that session
 // if it is already running or creates it otherwise.
 // Default: false
-// 
+//
 attach_to_session true
  
 // Toggle between having Zellij lay out panes according to a predefined set of layouts whenever possible
