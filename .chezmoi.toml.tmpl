@@ -1,0 +1,6 @@
+[data]
+hostname_role = {{ promptStringOnce . "hostname_role" "Hostname role (e.g. macbook_air, work_pc)" | quote }}
+email = {{ promptStringOnce . "email" "Email" | quote }}
+
+[edit]
+command = "nvim"

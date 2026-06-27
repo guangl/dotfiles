@@ -1,0 +1,7 @@
+{{- if eq .chezmoi.os "windows" }}
+.zshrc
+.zimrc
+.config/ghostty
+{{- else }}
+Documents/PowerShell/Microsoft.PowerShell_profile.ps1
+{{- end }}
