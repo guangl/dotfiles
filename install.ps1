@@ -1,52 +1,25 @@
-# Bootstrap a Windows machine: install scoop + winget packages mirroring the
-# macOS Brewfile, then apply dotfiles via chezmoi.
+# Bootstrap a Windows machine: install scoop + winget packages, then apply
+# dotfiles via chezmoi.
 #
 # Run from a regular PowerShell prompt:
 #   irm https://raw.githubusercontent.com/guangl/dotfiles/main/install.ps1 | iex
-#
-# NOTE: this has not been tested on a real Windows machine yet. Package IDs
-# are best-effort guesses from the macOS Brewfile — verify with
-# `scoop search <name>` / `winget search <name>` and fix any that fail.
 
 $ErrorActionPreference = "Stop"
 
 $Repo = "guangl/dotfiles"
 
-# ---- scoop (CLI tools, mirrors `brew` formulae) ----------------------------
+# ---- scoop (CLI tools) ------------------------------------------------------
 
-$ScoopBuckets = @("extras", "nerd-fonts")
+$ScoopBuckets = @()
 
 $ScoopApps = @(
-  "atuin", "bat", "bottom", "bun", "chezmoi", "sqlite", "direnv", "duckdb",
-  "dust", "eza", "fd", "ffmpeg", "fzf", "gdu", "gh", "git", "delta",
-  "python", "httpie", "hyperfine", "jq", "lazygit", "neovim", "nodejs",
-  "openjdk", "postgresql", "ripgrep", "rustup", "starship", "vim", "yq",
-  "yt-dlp", "zellij", "zoxide", "espanso",
-  "FiraCode-NF"
-  # Skipped (no Windows/scoop equivalent): colima, zimfw (zsh-only), trash,
-  # pre-commit (install via `pip install pre-commit` instead).
+  # add scoop package names here
 )
 
-# ---- winget (GUI apps, mirrors `cask`) -------------------------------------
+# ---- winget (GUI apps) ------------------------------------------------------
 
 $WingetApps = @(
-  "AgileBits.1Password.CLI",
-  "ScooterSoftware.BeyondCompare4",
-  "Anthropic.Claude",
-  "Google.Chrome",
-  "JetBrains.Toolbox",
-  "Valve.Steam",
-  "Telegram.TelegramDesktop",
-  "Termius.Termius",
-  "Mozilla.Thunderbird",
-  "Typora.Typora",
-  "Microsoft.VisualStudioCode",
-  "Tencent.WeChat",
-  "Tencent.WeCom"
-  # Skipped (macOS-only, no Windows build): alfred, awesun, cleanshot,
-  # coteditor, devonthink, downie, ghostty, iina, istat-menus, pearcleaner,
-  # popclip, surge. Verify uncertain IDs (navicat, qqmusic, thunder/xunlei,
-  # wpsoffice) with `winget search` before relying on this list.
+  # add winget package IDs here
 )
 
 # -----------------------------------------------------------------------------
