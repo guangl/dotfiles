@@ -24,8 +24,54 @@ $ScoopApps = @(
   "zellij"
   "eza"
   "espanso"
+  "zoxide"
+  "trashy"
   "git"
   "FiraCode-NF-Mono" # nerd font for starship/eza icon glyphs
+
+  # dev tooling
+  "chezmoi"
+  "gh"
+  "neovim"
+  "nodejs"
+  "bun"
+  "go"
+  "rustup"
+  "gcc"
+  "make"
+  "pyenv"
+  "python"
+  "zig"
+  "sqlite"
+  "bat"
+
+  # GUI apps installed via scoop (extras bucket)
+  "googlechrome"
+  "vscode"
+  "windows-terminal"
+  "heidisql"
+  "notepadplusplus"
+  "potplayer"
+  "sumatrapdf"
+  "telegram"
+  "Termius"
+  "wechat"
+  "wecom"
+  "wpsoffice"
+  "jetbrains-toolbox"
+  "claude"
+
+  # misc CLI utilities
+  "1password-cli"
+  "7zip"
+  "innounp" # dependency for extracting some installers
+  "dark"    # dependency for extracting some installers
+
+  # fonts
+  "FiraCode"
+  "jetbrainsmono-nf"
+  "LXGWWenKai"
+  "LXGWWenKaiMono"
 )
 
 # ---- winget (GUI apps) ------------------------------------------------------

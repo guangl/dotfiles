@@ -45,7 +45,7 @@ macOS (installs Homebrew if missing, then `brew bundle install` from [`Brewfile`
 curl -fsSL https://raw.githubusercontent.com/guangl/dotfiles/main/install.sh | bash
 ```
 
-Windows (PowerShell, installs [scoop](https://scoop.sh/) for CLI tools and uses `winget` for GUI apps — package list is currently empty, add packages to `$ScoopApps`/`$WingetApps` in [`install.ps1`](./install.ps1) as needed):
+Windows (PowerShell, installs [scoop](https://scoop.sh/) for CLI and GUI apps and uses `winget` as a fallback — package list lives in `$ScoopApps`/`$WingetApps` in [`install.ps1`](./install.ps1)):
 
 ```powershell
 irm https://raw.githubusercontent.com/guangl/dotfiles/main/install.ps1 | iex
