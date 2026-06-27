@@ -22,7 +22,21 @@ Update-InitCache -Command starship -CachePath $starshipCache -InitArgs @("init",
 $atuinCache = "$initCacheDir\atuin_init.ps1"
 Update-InitCache -Command atuin -CachePath $atuinCache -InitArgs @("init", "powershell")
 . $atuinCache
+
+$zoxideCache = "$initCacheDir\zoxide_init.ps1"
+Update-InitCache -Command zoxide -CachePath $zoxideCache -InitArgs @("init", "powershell")
+. $zoxideCache
 # =======================================
+
+# ======== Alias (ported from macOS .zshrc) =====
+Remove-Item Alias:rm -Force -ErrorAction SilentlyContinue
+Remove-Item Alias:cd -Force -ErrorAction SilentlyContinue
+function cd { if ($args.Count -eq 0) { z $HOME } else { z @args } }
+function rm { trash @args }
+function ce { chezmoi edit --apply @args }
+function dotedit { nvim (chezmoi source-path) }
+function reload { . $PROFILE }
+# =================================================
 
 # ======== Zellij =======================
 $env:ZELLIJ_CONFIG_DIR = "$HOME\.config\zellij"
