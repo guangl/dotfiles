@@ -1,0 +1,12 @@
+font-family = "Fira Code Regular"
+font-size = 20
+background-image-opacity = 0.8
+
+selection-word-chars = true
+
+maximize = true
+
+quit-after-last-window-closed = true
+
+macos-icon = "xray"
+

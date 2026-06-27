@@ -1,0 +1,5 @@
+---
+git:
+  repo_url: "https://github.com/guangl/espanso-dmsql-packages.git"
+  repo_branch: ~
+  use_native_git: false

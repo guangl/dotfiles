@@ -1,0 +1,15 @@
+matches:
+  - trigger: :dmcuser
+    label: 创建用户以及赋予权限
+    replace: |
+      CREATE USER \"$|$\" IDENTIFIED BY \"$|$\";
+      GRANT DBA,RESOURCE,SOI,VIT TO \"$|$\";
+
+  - trigger: :dmdbafiles
+    replace: |
+      SELECT
+        1.0 * SUM(BYTES) / 1024 / 1024 / 1024 "总大小GB",
+        1.0 *((SUM(F.BYTES) - SUM(USER_BYTES)) / 1024 / 1024 / 1024) "实际使用GB"
+      FROM
+        DBA_DATA_FILES F;
+

@@ -1,0 +1,5 @@
+name: "dmsql-package"
+title: "DM Database (达梦) SQL Snippets"
+description: Espanso snippets for working with DM Database (达梦数据库, DMSQL) - common SQL syntax, DM-specific functions/system views, and DBA/admin commands.
+version: 0.4.1
+author: guangluo

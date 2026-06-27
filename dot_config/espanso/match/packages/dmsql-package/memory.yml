@@ -1,0 +1,102 @@
+matches:
+  - trigger: :dmmemsql
+    label: 单个会话内存使用总量
+    replace: |
+      SELECT
+        A.CREATOR                          ,
+        B.SQL_TEXT                         ,
+        SUM(A.TOTAL_SIZE)/1024.0/1024.0 TOTAL_M,    --当前总量(包括扩展)
+        SUM(A.DATA_SIZE) /1024.0/1024.0 DATA_SIZE_M  --实际使用量
+      FROM
+        V$MEM_POOL A,
+        V$SESSIONS B
+      WHERE
+        A.CREATOR = B.THRD_ID
+      GROUP BY
+        A.CREATOR,
+        B.SQL_TEXT
+      ORDER BY
+        TOTAL_M DESC;
+
+  - trigger: :dmmemtotal
+    label: 达梦内存总量
+    replace: |
+      SELECT
+        --数据库层面查看内存占有多少
+        ( SELECT SUM(CAST(N_PAGES AS BIGINT) * PAGE_SIZE) / 1024 / 1024 FROM V$BUFFERPOOL ) || 'MB' AS BUFFER_SIZE,
+        ( SELECT SUM(CAST(TOTAL_SIZE AS BIGINT)) / 1024 / 1024 FROM V$MEM_POOL ) || 'MB' AS MEM_POOL,
+        ( SELECT SUM(CAST(N_PAGES AS BIGINT) * PAGE_SIZE) / 1024 / 1024 FROM V$BUFFERPOOL ) + ( SELECT SUM(CAST(TOTAL_SIZE AS BIGINT)) / 1024 / 1024 FROM V$MEM_POOL ) || 'MB' AS TOTAL_SIZE,
+        (
+          SELECT
+            MEMORY_TARGET + BUFFER + RECYCLE + HJ_BUF_GLOBAL_SIZE + HAGR_BUF_GLOBAL_SIZE + CACHE_POOL_SIZE + DICT_BUF_SIZE + SORT_BUF_GLOBAL_SIZE + RLOG_POOL_SIZE
+          FROM
+            ( SELECT PARA_VALUE AS MEMORY_TARGET FROM V$DM_INI WHERE PARA_NAME = 'MEMORY_TARGET' ),
+            ( SELECT PARA_VALUE AS BUFFER FROM V$DM_INI WHERE PARA_NAME = 'BUFFER' ),
+            ( SELECT PARA_VALUE AS RECYCLE FROM V$DM_INI WHERE PARA_NAME = 'RECYCLE' ),
+            ( SELECT PARA_VALUE AS HJ_BUF_GLOBAL_SIZE FROM V$DM_INI WHERE PARA_NAME = 'HJ_BUF_GLOBAL_SIZE' ),
+            ( SELECT PARA_VALUE AS HAGR_BUF_GLOBAL_SIZE FROM V$DM_INI WHERE PARA_NAME = 'HAGR_BUF_GLOBAL_SIZE' ),
+            ( SELECT PARA_VALUE * 3 AS CACHE_POOL_SIZE FROM V$DM_INI WHERE PARA_NAME = 'CACHE_POOL_SIZE' ),
+            ( SELECT PARA_VALUE * 2 AS DICT_BUF_SIZE FROM V$DM_INI WHERE PARA_NAME = 'DICT_BUF_SIZE' ),
+            ( SELECT PARA_VALUE AS SORT_BUF_GLOBAL_SIZE FROM V$DM_INI WHERE PARA_NAME = 'SORT_BUF_GLOBAL_SIZE' ),
+            ( SELECT PARA_VALUE AS RLOG_POOL_SIZE FROM V$DM_INI WHERE PARA_NAME = 'RLOG_POOL_SIZE' )
+        ) || 'MB' AS "参数预估使用内存",
+        ( SELECT COUNT(*) CONNECTS FROM V$SESSIONS ) AS "当前会话数",
+        (
+          SELECT ( SELECT COUNT(*) CONNECTS FROM V$SESSIONS ) * ( SELECT PARA_VALUE FROM V$DM_INI WHERE PARA_NAME = 'SESS_POOL_TARGET' ) / 1024.0
+        ) AS "当前会话数可能内存"
+      FROM DUAL;
+
+  - trigger: :dmmempara
+    label: 达梦内存相关参数
+    replace: SELECT * FROM V$DM_INI WHERE PARA_NAME IN('BUFFER','BUFFER_POOLS','CACHE_POOL_SIZE','DICT_BUF_SIZE','DPC_GUP_SESS_TIMEOUT','FAST_POOL_PAGES','FAST_ROLL_PAGES','ENABLE_FREQROOTS','HAGR_BUF_GLOBAL_SIZE','HJ_BUF_GLOBAL_SIZE','HUGE_BUFFER','HUGE_BUFFER_POOLS','KEEP','MAX_OS_MEMORY','MAX_SESSIONS','MAX_SESSION_STATEMENT','MEMORY_BAK_POOL','MEMORY_EXTENT_SIZE','MEMORY_POOL','MEMORY_TARGET','RECYCLE','RLOG_POOL_SIZE','SESS_POOL_SIZE','SESS_POOL_TARGET','SORT_BUF_GLOBAL_SIZE','VM_POOL_SIZE','VM_POOL_TARGET','ENABLE_MONITOR_BP','SESSION_RESULT_SET_LIMIT','VM_MEM_HEAP','ENABLE_MONITOR');
+
+
+  - trigger: :dmmemasql
+    label: 当前数据库中内存消耗最大的几个 SQL
+    replace: |
+      SELECT
+        N_EXTEND_EXCLUSIVE,
+        B.SESS_ID,
+        B.APPNAME,
+        B.CLNT_IP,
+        B.CREATE_TIME,
+        B.TRX_ID,
+        C.SQL_TXT,
+        C.MAX_MEM_USED / 1024 AS MEM_USE_MB,
+        *
+      FROM
+        V$MEM_POOL A
+        LEFT JOIN V$SESSIONS B ON A.CREATOR = B.THRD_ID
+        LEFT JOIN V$SQL_STAT_HISTORY C ON B.SESS_ID = C.SESSID
+      WHERE
+        N_EXTEND_EXCLUSIVE > 0
+      ORDER BY
+        C.MAX_MEM_USED DESC
+      LIMIT
+        10;
+
+  - trigger: :dmbuff
+    label: 如何判断BUFFER空闲还是紧张。1. 如果free很多说明该缓冲区很空闲，可以适当的调整降低buffer缓冲区参数值；2. 如果 free 项为 0，或者 N_DISCARD64 非零，表示该缓冲区经常淘汰。这种情况，就说明对应的缓冲区参数太小，导致频繁淘汰，需要调整对应的缓冲区的参数。
+    replace: |
+      SELECT
+        NAME,       --缓冲区名称
+        N_PAGES,    --页数
+        FREE,       --空闲页数目
+        N_DISCARD64 --淘汰的页数
+      FROM V$BUFFERPOOL;
+
+  - trigger: :dmbupl
+    replace: |
+      SELECT
+        NAME,
+        COUNT(*),
+        AVG(RAT_HIT) 命中率75,
+        TRUNC(SUM((N_PAGES / 1024.0 / 1024 * PAGE))) 大小,
+        TRUNC(SUM((FREE / 1024.0 / 1024 * PAGE))) 空闲,
+        TRUNC(SUM((N_DIRTY / 1024.0 / 1024 * PAGE))) 脏页,
+        TRUNC(SUM((N_CLEAR / 1024.0 / 1024 * PAGE))) 零页 -- SELECT *
+      FROM
+        V$BUFFERPOOL
+      GROUP BY
+        NAME;
+

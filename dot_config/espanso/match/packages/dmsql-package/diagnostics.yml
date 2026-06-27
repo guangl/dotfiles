@@ -1,0 +1,58 @@
+matches:
+  - trigger: :dmpsp
+    label: 去重堆栈
+    replace: "cat $ss|awk 'BEGIN { s=\"\"; }\n/^Thread/ { print s;s=\"\"; }\n/^#/ { if (s!=\"\"){ s=s\",\"$4} else { s=$4} }\nEND {print s}\n' | sort | uniq -c |sort -r -n -k 1,1"
+
+  - trigger: :dmtrace
+    replace: |
+      1. 获取缓存计划的函数
+      SELECT SF_TRACE_DUMP_PLN(CACHE_ITEM) FROM V$CACHEPLN WHERE SQLSTR LIKE '%SQL文本模糊匹配%';
+      2. 获取包计划函数，如果想获取某包中具体方法的计划可使用
+      SELECT NAME, SF_TRACE_DUMP_PKGPLN(ID) FROM V$CACHEPKG WHERE NAME = '包名';
+
+  - trigger: :dmerrpage
+    label: 根据文件号，页号 定位表
+    replace: |
+      SELECT
+        ( SELECT NAME FROM SYSOBJECTS WHERE ID = A.SCHID ) AS SCHEMA_NAME,
+        ( SELECT NAME FROM SYSOBJECTS WHERE ID = A.PID ) AS FATHER_NAME,
+        A.NAME,
+        *
+      FROM
+        SYSOBJECTS A
+      WHERE
+        A.ID = SF_PAGE_GET_INDID(4, 0, $|$);
+
+  - trigger: :dmerrseg
+    label: 根据文件号，页号 定位表，以下语句慎用，容易导致宕机或系统变慢
+    replace: |
+      SELECT * FROM DBA_OBJECTS
+      WHERE
+        OBJECT_ID = (
+          SELECT OBJ_ID FROM V$SEGMENT_INFOS WHERE SEG_ID = ( SELECT SF_PAGE_GET_SEGID(4, 0, $|$) )
+        );
+
+  - trigger: :dmarchdig
+    replace: |
+      -- 1. 开始日志挖掘
+      SP_CREATE_SYSTEM_PACKAGES (1,'DBMS_LOGMNR');
+
+      -- 2. 添加一个或多个需要分析的归档日志文件
+      DBMS_LOGMNR.ADD_LOGFILE('$|$');
+
+      -- 3. 查看通过 ADD_LOGFILE 添加的归档日志文件，可以通过动态视图 V$LOGMNR_LOGS 进行查询，如下：
+      SELECT LOW_SCN, NEXT_SCN, LOW_TIME, HIGH_TIME, LOG_ID, FILENAME FROM V$LOGMNR_LOGS;
+ 
+      -- 4. 启动归档日志文件分析
+      DBMS_LOGMNR.START_LOGMNR(
+          OPTIONS    = > 2128,
+          STARTTIME  = > TO_DATE('2022-09-06 22:45:16', 'YYYY-MM-DD HH24:MI:SS'),
+          ENDTIME    = > TO_DATE('2024-09-07 22:45:16', 'YYYY-MM-DD HH24:MI:SS')
+      ); 
+
+      -- 5. 查看归档日志文件的分析结果，可以通过动态视图 V$LOGMNR_CONTENTS 进行查询，命令如下，可以查出相应的信息：
+      SELECT * FROM V$LOGMNR_CONTENTS;
+       
+      -- 6. 终止归档日志文件分析
+      DBMS_LOGMNR.END_LOGMNR();
+

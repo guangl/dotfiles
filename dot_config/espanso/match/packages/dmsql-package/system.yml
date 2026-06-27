@@ -1,0 +1,24 @@
+matches:
+  - trigger: :dmparam
+    label: 查询系统参数值
+    replace: SELECT * FROM V$DM_INI WHERE PARA_NAME LIKE '%$|$%';
+
+  - trigger: :dmver
+    label: 查询数据库版本
+    replace: |
+      SELECT
+          ID_CODE,
+          BUILD_TYPE,
+          TO_NUMBER(SUBSTR(VER, 1, 2), 'XX') || '.' ||
+          TO_NUMBER(SUBSTR(VER, 3, 2), 'XX') || '.' ||
+          TO_NUMBER(SUBSTR(VER, 5, 2), 'XX') || '.' ||
+          TO_NUMBER(SUBSTR(VER, 7, 2), 'XX') AS INNER_VER
+      FROM
+          (
+              SELECT
+                  DECODE(SUBSTR(VER, 1, 2),'03','企业版','05','安全版','02','标准版','其他') AS BUILD_TYPE,
+                  '0' || HEX(CAST(SUBSTR(VER, 3) AS INT)) AS VER
+              FROM
+                  ( SELECT REGEXP_SUBSTR(ID_CODE, '[^-]+', 1, 1) AS VER )
+          );
+

@@ -1,0 +1,23 @@
+matches:
+  - trigger: :dmsea
+    label: 查看当前的活动会话
+    replace: SELECT DATEDIFF(SS,LAST_SEND_TIME,SYSDATE) SS,SF_GET_SESSION_SQL(SESS_ID),* FROM V$SESSIONS WHERE STATE <> 'IDLE' ORDER BY 1 DESC;
+
+  - trigger: :dmseip
+    replace: |
+      SELECT
+        LEFT(CLNT_IP, INSTR(CLNT_IP, ':', 1, 4)) AS CLNT_IP,
+        STATE,
+        COUNT(*) AS NUM
+      FROM
+        V$SESSIONS
+      GROUP BY
+        LEFT(CLNT_IP, INSTR(CLNT_IP, ':', 1, 4)),
+        STATE
+      ORDER BY
+        1;
+
+  - trigger: :dmsetw
+    label: 查看当前事物阻塞
+    replace: SELECT * FROM V$TRXWAIT;
+

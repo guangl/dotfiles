@@ -1,0 +1,7 @@
+imports:
+  - "session.yml"
+  - "system.yml"
+  - "dba.yml"
+  - "backup.yml"
+  - "diagnostics.yml"
+  - "memory.yml"

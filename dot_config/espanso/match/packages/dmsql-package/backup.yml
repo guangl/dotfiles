@@ -1,0 +1,5 @@
+matches:
+  - trigger: :dmbackup
+    label: 对数据库进行全量备份
+    replace: BACKUP DATABASE FULL BACKUPSET '$' COMPRESS LEVEL 1 PARALLEL 8;
+

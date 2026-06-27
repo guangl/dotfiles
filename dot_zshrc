@@ -1,0 +1,54 @@
+# ======== ZIM load ==================
+# Zim - A Zsh Configuration Framework
+ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim
+# Install missing modules and update ${ZIM_HOME}/init.zsh if missing or outdated.
+if [[ ! ${ZIM_HOME}/init.zsh -nt ${ZIM_CONFIG_FILE:-${ZDOTDIR:-${HOME}}/.zimrc} ]]; then
+  source /opt/homebrew/opt/zimfw/share/zimfw.zsh init
+fi
+# Initialize modules.
+source ${ZIM_HOME}/init.zsh
+# ====================================
+
+# ====================================
+# ======== Application Load ==========
+#
+#
+# ======== starship ==================
+eval "$(starship init zsh)"
+# ====================================
+#
+# ======== Alias =====================
+alias ls='eza --group-directories-first --icons'
+# ====================================
+#
+# ======== Atuin =====================
+eval "$(atuin init zsh)"
+# ====================================
+#
+# ======== Zellji ====================
+export ZELLIJ_AUTO_ATTACH=false
+export ZELLIJ_AUTO_EXIT=true
+eval "$(zellij setup --generate-auto-start zsh)"
+# ====================================
+#
+# ======== Espanso ===================
+export ESPANSO_CONFIG_DIR="$HOME/.config/espanso"
+# ====================================
+#
+# ======== Starship ==================
+export STARSHIP_CONFIG="$HOME/.config/starship/config.toml"
+# ====================================
+#
+# ======== Application end ===========
+
+# ======== Alias =====================
+alias cd='z'
+alias rm='trash'
+alias ce='chezmoi edit --apply'
+alias dotedit='nvim $(chezmoi source-path)'
+alias reload='exec zsh'
+# ====================================
+
+
+
+
