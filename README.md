@@ -35,10 +35,28 @@ Personal dotfiles managed with [chezmoi](https://www.chezmoi.io/).
 
 ## Usage
 
+### One-shot bootstrap (new machine)
+
+Installs all required software and applies the dotfiles in one go.
+
+macOS:
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/guangl/dotfiles/main/install.sh | bash
+```
+
+Windows (PowerShell, requires `winget`):
+
+```powershell
+irm https://raw.githubusercontent.com/guangl/dotfiles/main/install.ps1 | iex
+```
+
+On first run, `chezmoi init` will prompt for `hostname_role` and `email`.
+
+### Manual / already have chezmoi
+
 ```sh
 chezmoi init https://github.com/guangl/dotfiles.git
 chezmoi diff
 chezmoi apply
 ```
-
-On first run, `chezmoi init` will prompt for `hostname_role` and `email`.
