@@ -37,15 +37,15 @@ Personal dotfiles managed with [chezmoi](https://www.chezmoi.io/).
 
 ### One-shot bootstrap (new machine)
 
-Installs all required software and applies the dotfiles in one go.
+Installs the package manager, every package, and applies the dotfiles in one go.
 
-macOS:
+macOS (installs Homebrew if missing, then `brew bundle install` from [`Brewfile`](./Brewfile) — CLI tools, casks, and VS Code extensions):
 
 ```sh
 curl -fsSL https://raw.githubusercontent.com/guangl/dotfiles/main/install.sh | bash
 ```
 
-Windows (PowerShell, requires `winget`):
+Windows (PowerShell, installs [scoop](https://scoop.sh/) for CLI tools and uses `winget` for GUI apps — IDs are best-effort, not yet verified on a real machine):
 
 ```powershell
 irm https://raw.githubusercontent.com/guangl/dotfiles/main/install.ps1 | iex

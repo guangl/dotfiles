@@ -1,5 +1,6 @@
 install.sh
 install.ps1
+Brewfile
 
 {{- if eq .chezmoi.os "windows" }}
 .zshrc

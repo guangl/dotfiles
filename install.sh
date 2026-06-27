@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
-# Bootstrap a macOS machine: install Homebrew + packages, then apply dotfiles via chezmoi.
+# Bootstrap a macOS machine: install Homebrew, install everything in Brewfile
+# (CLI tools, casks, VS Code extensions), then apply dotfiles via chezmoi.
 set -euo pipefail
 
 REPO="guangl/dotfiles"
-PACKAGES=(chezmoi zimfw eza starship atuin zellij espanso ghostty neovim)
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 if ! command -v brew >/dev/null 2>&1; then
   echo "==> Installing Homebrew..."
@@ -11,8 +12,13 @@ if ! command -v brew >/dev/null 2>&1; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
-echo "==> Installing packages: ${PACKAGES[*]}"
-brew install "${PACKAGES[@]}"
+if [[ -f "${SCRIPT_DIR}/Brewfile" ]]; then
+  echo "==> Installing everything in Brewfile"
+  brew bundle install --file="${SCRIPT_DIR}/Brewfile"
+else
+  echo "==> No local Brewfile found, fetching from repo and installing"
+  curl -fsSL "https://raw.githubusercontent.com/${REPO}/main/Brewfile" | brew bundle install --file=-
+fi
 
 echo "==> Applying dotfiles from ${REPO}"
 chezmoi init --apply "${REPO}"
