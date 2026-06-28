@@ -1,6 +1,7 @@
 install.sh
 install.ps1
 Brewfile
+packages.csv
 
 {{- if eq .chezmoi.os "windows" }}
 .zshrc

@@ -15,54 +15,32 @@ $ScoopBuckets = @(
   "nerd-fonts"
 )
 
+# Windows-only apps; cross-platform CLI/app names shared with the Brewfile
+# live in packages.csv (see below) so they aren't duplicated here.
 $ScoopApps = @(
   # required by Documents/PowerShell/Microsoft.PowerShell_profile.ps1 and
   # the dot_config dotfiles
   "pwsh"
-  "starship"
-  "atuin"
-  "zellij"
-  "eza"
-  "espanso"
-  "zoxide"
-  "trashy"
-  "git"
   "FiraCode-NF-Mono" # nerd font for starship/eza icon glyphs
 
   # dev tooling
-  "chezmoi"
-  "gh"
-  "neovim"
-  "nodejs"
-  "bun"
   "go"
-  "rustup"
   "gcc"
   "make"
   "pyenv"
   "python"
   "zig"
-  "sqlite"
-  "bat"
 
   # GUI apps installed via scoop (extras bucket)
-  "googlechrome"
-  "vscode"
   "windows-terminal"
   "heidisql"
   "notepadplusplus"
   "potplayer"
   "sumatrapdf"
-  "telegram"
-  "Termius"
-  "wechat"
   "wecom"
   "wpsoffice"
-  "jetbrains-toolbox"
-  "claude"
 
   # misc CLI utilities
-  "1password-cli"
   "7zip"
   "innounp" # dependency for extracting some installers
   "dark"    # dependency for extracting some installers
@@ -82,6 +60,29 @@ $WingetApps = @(
 
 # -----------------------------------------------------------------------------
 
+function Invoke-WithRetry {
+  param(
+    [Parameter(Mandatory)] [scriptblock]$Action,
+    [string]$Description = "command",
+    [int]$MaxAttempts = 3,
+    [int]$DelaySeconds = 5
+  )
+
+  for ($attempt = 1; $attempt -le $MaxAttempts; $attempt++) {
+    try {
+      & $Action
+      return
+    } catch {
+      if ($attempt -eq $MaxAttempts) {
+        Write-Warning "$Description failed after $MaxAttempts attempts: $_"
+        return
+      }
+      Write-Warning "$Description failed (attempt $attempt/$MaxAttempts): $_. Retrying in ${DelaySeconds}s..."
+      Start-Sleep -Seconds $DelaySeconds
+    }
+  }
+}
+
 if (-not (Get-Command scoop -ErrorAction SilentlyContinue)) {
   Write-Host "==> Installing scoop"
   Invoke-RestMethod get.scoop.sh | Invoke-Expression
@@ -93,11 +94,24 @@ foreach ($bucket in $ScoopBuckets) {
 
 foreach ($app in $ScoopApps) {
   Write-Host "==> scoop install $app"
-  try {
-    scoop install $app
-  } catch {
-    Write-Warning "scoop install $app failed: $_"
+  Invoke-WithRetry -Description "scoop install $app" -Action { scoop install $app }
+}
+
+# Cross-platform CLI/app names (shared with the Brewfile) live in
+# packages.csv so the two package lists don't drift apart.
+$LocalCsv = Join-Path $PSScriptRoot "packages.csv"
+if ($PSScriptRoot -and (Test-Path $LocalCsv)) {
+  $CommonPackages = Import-Csv $LocalCsv
+} else {
+  $CsvUrl = "https://raw.githubusercontent.com/$Repo/main/packages.csv"
+  Invoke-WithRetry -Description "download packages.csv" -Action {
+    $script:CommonPackages = Invoke-WebRequest -Uri $CsvUrl | Select-Object -ExpandProperty Content | ConvertFrom-Csv
   }
+}
+
+foreach ($pkg in $CommonPackages) {
+  Write-Host "==> scoop install $($pkg.scoop)"
+  Invoke-WithRetry -Description "scoop install $($pkg.scoop)" -Action { scoop install $pkg.scoop }
 }
 
 if (-not (Get-Command winget -ErrorAction SilentlyContinue)) {
@@ -106,10 +120,12 @@ if (-not (Get-Command winget -ErrorAction SilentlyContinue)) {
 
 foreach ($id in $WingetApps) {
   Write-Host "==> winget install $id"
-  winget install --id $id -e --accept-source-agreements --accept-package-agreements --silent
+  Invoke-WithRetry -Description "winget install $id" -Action {
+    winget install --id $id -e --accept-source-agreements --accept-package-agreements --silent
+  }
 }
 
 Write-Host "==> Applying dotfiles from $Repo"
-chezmoi init --apply $Repo
+Invoke-WithRetry -Description "chezmoi init --apply $Repo" -Action { chezmoi init --apply $Repo }
 
 Write-Host "==> Done. Restart your terminal to pick up the new profile."
