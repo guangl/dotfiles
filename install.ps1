@@ -93,7 +93,11 @@ foreach ($bucket in $ScoopBuckets) {
 
 foreach ($app in $ScoopApps) {
   Write-Host "==> scoop install $app"
-  scoop install $app
+  try {
+    scoop install $app
+  } catch {
+    Write-Warning "scoop install $app failed: $_"
+  }
 }
 
 if (-not (Get-Command winget -ErrorAction SilentlyContinue)) {
