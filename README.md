@@ -1,20 +1,32 @@
 # dotfiles
 
 Everything that defines how my machines are set up: shell, prompt, terminal,
-editor, CLI tools, AI coding agents, and the macOS system preferences that are
+editors, CLI tools, AI coding agents, and the macOS system preferences that are
 worth reproducing. Managed with [chezmoi](https://www.chezmoi.io/).
 
 Snapshotted from a MacBook Air (macOS) in October 2026 and kept in sync with
-`scripts/sync_home.py`.
+[`scripts/sync_home.py`](./scripts/sync_home.py).
 
 ## Layout
 
+```
+.chezmoiroot                 # "home" — the chezmoi source directory
+home/                        # everything that lands in $HOME
+  .chezmoi.toml.tmpl         # prompts for hostname_role / email on init
+  .chezmoiignore             # platform-specific exclusions (Windows/macOS)
+  dot_zshrc, dot_config/…    # chezmoi source names
+  Library/…                  # macOS app preferences that are plain files
+macos/                       # system preference plists + capture/restore scripts
+scripts/sync_home.py         # reproducible capture from a live machine
+Brewfile, packages.csv       # package lists
+install.sh, install.ps1      # one-shot bootstrap
+```
+
 Source files use chezmoi naming: a leading `.` in the name is written as
-`dot_`, so `dot_zshrc` becomes `~/.zshrc` and `dot_config/ghostty` becomes
-`~/.config/ghostty`. Files that are `0600` on the machine keep that mode via the `private_`
-prefix: `dot_config/private_atuin/private_config.toml` →
-`~/.config/atuin/config.toml`, `dot_claude/private_settings.json` →
-`~/.claude/settings.json`, and so on.
+`dot_`, so `home/dot_zshrc` becomes `~/.zshrc` and `home/dot_config/ghostty`
+becomes `~/.config/ghostty`. Files that are `0600` on the machine keep that
+mode through the `private_` prefix (`home/dot_config/private_atuin/private_config.toml`
+→ `~/.config/atuin/config.toml`).
 
 ## What is captured
 
@@ -22,13 +34,15 @@ prefix: `dot_config/private_atuin/private_config.toml` →
 | --- | --- | --- |
 | Shell | `dot_zshrc`, `dot_zprofile`, `dot_profile`, `dot_zimrc`, `dot_config/fish/conf.d/uv.env.fish`, `dot_local/share/zsh/site-functions/_dm` | `~/.zshrc`, `~/.zprofile`, `~/.profile`, `~/.zimrc`, `~/.config/fish/conf.d/uv.env.fish`, `~/.local/share/zsh/site-functions/_dm` |
 | Prompt / terminal | `dot_config/starship`, `dot_config/zellij`, `dot_config/ghostty` | `~/.config/{starship,zellij,ghostty}` |
-| Shell history | `dot_config/private_atuin/private_config.toml` | `~/.config/atuin/config.toml` (mode 0600) |
-| Editors | `dot_config/nvim` (AstroNvim), `Library/Application Support/Code/User/{settings.json,keybindings.json,snippets}`, `dot_vscode/argv.json` | `~/.config/nvim`, `~/Library/Application Support/Code/User/...`, `~/.vscode/argv.json` |
-| Git / SSH | `dot_gitconfig`, `dot_config/git/ignore`, `dot_config/jgit/config`, `dot_config/gh/private_config.yml`, `dot_ssh/config`, `dot_ssh/id_ed25519.pub` | `~/.gitconfig`, `~/.config/{git,jgit,gh}`, `~/.ssh/config`, `~/.ssh/id_ed25519.pub` |
+| Shell history | `dot_config/private_atuin/private_config.toml` | `~/.config/atuin/config.toml` (0600) |
+| VS Code | `Library/Application Support/Code/User`: `settings.json`, `keybindings.json`, `tasks.json`, `snippets/`, `profiles/` | `~/Library/Application Support/Code/User/…` |
+| JetBrains | `Library/Application Support/JetBrains/IntelliJIdea2026.2/{options,disabled_plugins.txt}` (recent projects and window state excluded) | IDE settings |
+| Neovim | `dot_config/nvim` (AstroNvim) | `~/.config/nvim` |
+| Git / SSH | `dot_gitconfig`, `dot_config/git/ignore`, `dot_config/jgit/config`, `dot_config/gh/private_config.yml`, `dot_ssh/config`, `dot_ssh/id_ed25519.pub` | `~/.gitconfig`, `~/.config/{git,jgit,gh}`, `~/.ssh/{config,id_ed25519.pub}` |
 | Containers / runtimes | `dot_docker/private_config.json`, `dot_rustup/settings.toml` | `~/.docker/config.json` (0600), `~/.rustup/settings.toml` |
-| Small tools | `dot_config/{billion-context,mimocode,espanso}` | matching `~/.config` directories |
-| AI coding agents | `dot_claude/{private_settings.json,skills}`, `dot_codex/{private_config.toml,keybindings.json,AGENTS.md}`, `dot_agents/skills`, `dot_dsh/profiles/web` (profile config only, no `node_modules`) | `~/.claude`, `~/.codex`, `~/.agents/skills`, `~/.dsh/profiles/web` |
-| macOS defaults | `macos/defaults/*.plist` (11 domains), `macos/restore.sh` | imported with `defaults import`; see [macos/README.md](./macos/README.md) |
+| Small tools | `dot_config/{chezmoi,billion-context,mimocode,espanso}`, `dot_copilot/config.json`, `dot_vscode/argv.json` | matching paths under `~/.config`, `~/.copilot`, `~/.vscode` |
+| AI coding agents | `dot_claude/{private_settings.json,skills}`, `dot_codex/{private_config.toml,keybindings.json,AGENTS.md}`, `dot_agents/skills`, `dot_codewhale/config.toml`, `dot_dsh/profiles/web` (config only, no `node_modules`) | `~/.claude`, `~/.codex`, `~/.agents/skills`, `~/.codewhale`, `~/.dsh/profiles/web` |
+| macOS defaults | `macos/defaults/*.plist` (15 domains, XML), `macos/capture.sh`, `macos/restore.sh` | `defaults import`; see [macos/README.md](./macos/README.md) |
 | Packages | `Brewfile`, `packages.csv`, `install.sh`, `install.ps1` | package managers |
 | Windows | `Documents/PowerShell/Microsoft.PowerShell_profile.ps1` | PowerShell profile |
 
@@ -42,22 +56,25 @@ creates the `~/.claude/skills/weread-skills` symlink that Claude Code needs.
 - not captured at all: private SSH keys, `~/.config/gh/hosts.yml`,
   `~/.codex/auth.json`, `~/.dsh/.credentials.yaml`, `.config/op` and 1Password
   data, `~/.claude.json` and its backups, shell history (`.zsh_history`,
-  `.bash_history`, `.viminfo`), caches, VS Code extension binaries,
-  `node_modules`, and the bulk of `~/Library/Preferences`.
+  `.bash_history`, `.viminfo`), caches, `node_modules`, VS Code extension
+  binaries, the bulk of `~/Library/Preferences`, and the parts of
+  `~/Library/Application Support` that are state rather than configuration
+  (browser profiles, Alfred's 35 MB preferences bundle, JetBrains' 500 MB cache
+  tree, SQLite session databases).
 - redacted in place: anything matching a known token shape (`wrk-`, `sk-`,
   `github_pat_`, `gh[pousr]_`, `AKIA…`, `xox[baprs]-`) is replaced with
-  `REDACTED` by the capture script before it is written. Today that affects
-  `dot_claude/private_settings.json` and `dot_codex/private_config.toml` (`WEREAD_API_KEY`).
+  `REDACTED` before it is written. Today that affects
+  `home/dot_claude/private_settings.json` and `home/dot_codex/private_config.toml`
+  (`WEREAD_API_KEY`) and `home/dot_codewhale/config.toml` (an `sk-` API key).
 
 After applying on a new machine, put real values back locally (or export them
-from your shell environment); re-running the capture script will redact them
-again.
+from your shell environment); re-running the capture script redacts them again.
 
 ## Re-sync from a live machine
 
 ```sh
 python3 scripts/sync_home.py --dry-run   # show what would change
-python3 scripts/sync_home.py             # copy + redact into the source tree
+python3 scripts/sync_home.py             # copy + redact into home/
 git diff                                 # review before committing
 ```
 
@@ -96,10 +113,11 @@ On first run, `chezmoi init` prompts for `hostname_role` and `email`.
 
 ## Platform support
 
-- **macOS**: full setup — zsh + zim, ghostty, VS Code, macOS defaults.
+- **macOS**: full setup — zsh + zim, ghostty, VS Code, JetBrains, macOS defaults.
 - **Windows** (native PowerShell, no WSL): starship, atuin, zellij, espanso and
   the eza alias via the PowerShell profile. zsh/zim, ghostty, fish, jgit,
-  `~/.local`, and `~/Library` are skipped by [`.chezmoiignore`](./.chezmoiignore).
+  `~/.local`, and `~/Library` are skipped by
+  [`home/.chezmoiignore`](./home/.chezmoiignore).
 
 ## Requirements
 

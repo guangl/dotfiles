@@ -1,0 +1,20 @@
+auth_mode = "api_key"
+provider = "openai"
+
+[projects.'/Users/luoguang']
+trust_level = "trusted"
+
+[projects."/Users/luoguang/Downloads/Al大模型快速上手"]
+trust_level = "trusted"
+
+[providers.openai]
+api_key = "REDACTED"
+base_url = "http://tprd-newapi.dameng.com/v1"
+default_text_model = "deepseek-v4-pro"
+allow_insecure_http = true
+supported_endpoint_types = "openai"
+reasoning_effort = "disabled"
+
+[env]
+DEEPSEEK_ALLOW_INSECURE_HTTP = "1"
+

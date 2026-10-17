@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Capture this machine's configuration files into the chezmoi source tree.
 
-Each entry in MANIFEST is a path relative to $HOME. Files are copied using
-chezmoi's source naming (a leading "." becomes "dot_"), directories are copied
-recursively, and credential-looking strings are redacted on the way in.
+Each entry in MANIFEST is a path relative to $HOME. Files are copied into
+home/ (the chezmoi source directory, see .chezmoiroot) using chezmoi's source
+naming (a leading "." becomes "dot_"), directories are copied recursively, and
+credential-looking strings are redacted on the way in.
 
 Usage: python3 scripts/sync_home.py [--dry-run]
 """
@@ -17,6 +18,7 @@ from pathlib import Path
 
 HOME = Path.home()
 REPO = Path(__file__).resolve().parent.parent
+SOURCE = REPO / "home"
 
 MANIFEST = [
     # --- shell -------------------------------------------------------------
@@ -30,25 +32,30 @@ MANIFEST = [
     ".config/zellij/config.kdl",
     ".config/ghostty/config.ghostty",
     ".local/share/zsh/site-functions/_dm",
-    # --- git ---------------------------------------------------------------
+    # --- git / ssh ---------------------------------------------------------
     ".gitconfig",
     ".config/git/ignore",
     ".config/jgit/config",
     ".config/gh/config.yml",
-    # --- editors / terminals ----------------------------------------------
+    ".ssh/config",
+    ".ssh/id_ed25519.pub",
+    # --- editors -----------------------------------------------------------
     ".config/nvim",
     "Library/Application Support/Code/User/settings.json",
     "Library/Application Support/Code/User/keybindings.json",
+    "Library/Application Support/Code/User/tasks.json",
     "Library/Application Support/Code/User/snippets",
+    "Library/Application Support/Code/User/profiles",
+    "Library/Application Support/JetBrains/IntelliJIdea2026.2/options",
+    "Library/Application Support/JetBrains/IntelliJIdea2026.2/disabled_plugins.txt",
     ".vscode/argv.json",
     # --- tools -------------------------------------------------------------
     ".docker/config.json",
     ".rustup/settings.toml",
+    ".config/chezmoi/chezmoi.toml",
     ".config/billion-context/billion-context.json",
     ".config/mimocode/mimocode.jsonc",
-    # --- ssh (public material only) ---------------------------------------
-    ".ssh/config",
-    ".ssh/id_ed25519.pub",
+    ".copilot/config.json",
     # --- AI coding agents --------------------------------------------------
     ".claude/settings.json",
     ".claude/skills",
@@ -56,6 +63,7 @@ MANIFEST = [
     ".codex/keybindings.json",
     ".codex/AGENTS.md",
     ".agents/skills",
+    ".codewhale/config.toml",
     ".dsh/profiles/web/cordis.yml",
     ".dsh/profiles/web/cordis.patch.yml",
     ".dsh/profiles/web/package.json",
@@ -64,9 +72,17 @@ MANIFEST = [
 ]
 
 # Never copied even when they live inside a manifest directory.
-EXCLUDE_DIRS = {"node_modules", "__pycache__", ".git", ".system", "reports"}
+EXCLUDE_DIRS = {"node_modules", "__pycache__", ".git", ".system", "reports", "globalStorage"}
 EXCLUDE_NAMES = {".DS_Store"}
 EXCLUDE_PREFIXES = (".backup-",)
+
+# Individual files inside a manifest directory that are session state rather
+# than configuration (recent projects, window geometry).
+SKIP_REL = {
+    "Library/Application Support/JetBrains/IntelliJIdea2026.2/options/recentProjects.xml",
+    "Library/Application Support/JetBrains/IntelliJIdea2026.2/options/window.state.xml",
+    "Library/Application Support/JetBrains/IntelliJIdea2026.2/options/other.xml",
+}
 
 # Credential-looking strings are replaced before anything lands in the repo.
 # The repository is public, so treat every captured file as world-readable.
@@ -105,9 +121,9 @@ DRY_RUN = "--dry-run" in sys.argv
 
 def chezmoi_name(rel: str) -> str:
     """Map a $HOME-relative path to its chezmoi source path."""
-    parts = []
     if rel in PRIVATE_FILES:
         return PRIVATE_FILES[rel]
+    parts = []
     for part in Path(rel).parts:
         parts.append("dot_" + part[1:] if part.startswith(".") else part)
     return str(Path(*parts))
@@ -153,7 +169,7 @@ def copy_file(src: Path, dest: Path) -> str:
 
 def copy_path(rel: str, stats: dict[str, int]) -> None:
     src = HOME / rel
-    dest = REPO / chezmoi_name(rel)
+    dest = SOURCE / chezmoi_name(rel)
     if not src.exists() and not src.is_symlink():
         stats["missing"] += 1
         print(f"  skip (missing): {rel}")
@@ -167,10 +183,10 @@ def copy_path(rel: str, stats: dict[str, int]) -> None:
                     continue
                 child_dir = root_path / d
                 if child_dir.is_symlink():
-                    if str(child_dir.relative_to(HOME)) in SKIP_PATHS:
-                        continue
                     child = child_dir.relative_to(HOME)
-                    outcome = copy_file(child_dir, REPO / chezmoi_name(str(child)))
+                    if str(child) in SKIP_PATHS:
+                        continue
+                    outcome = copy_file(child_dir, SOURCE / chezmoi_name(str(child)))
                     stats[outcome] += 1
                     print(f"  {outcome}: {child}")
                     continue
@@ -181,7 +197,9 @@ def copy_path(rel: str, stats: dict[str, int]) -> None:
                     continue
                 file_path = root_path / name
                 child = file_path.relative_to(HOME)
-                outcome = copy_file(file_path, REPO / chezmoi_name(str(child)))
+                if str(child) in SKIP_REL:
+                    continue
+                outcome = copy_file(file_path, SOURCE / chezmoi_name(str(child)))
                 stats[outcome] += 1
                 if outcome == "redacted":
                     print(f"  redacted: {child}")

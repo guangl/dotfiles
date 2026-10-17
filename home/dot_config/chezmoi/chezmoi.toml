@@ -1,0 +1,7 @@
+[data]
+hostname_role = 'macbook_air'
+email = 'guangluo@outlook.com'
+
+[edit]
+command = 'nvim'
+

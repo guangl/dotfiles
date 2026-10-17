@@ -1,0 +1,136 @@
+<application>
+  <component name="ActionsLocalSummary">
+    <e n="$Redo">
+      <i c="2" l="1788787450221" />
+    </e>
+    <e n="$SelectAll">
+      <i c="4" l="1788786364422" />
+    </e>
+    <e n="$Undo">
+      <i c="50" l="1790129268295" />
+    </e>
+    <e n="BuildArtifact">
+      <i c="3" l="1790130211300" />
+    </e>
+    <e n="CommentByLineComment">
+      <i c="4" l="1790129386920" />
+    </e>
+    <e n="EditorBackSpace">
+      <i c="108" l="1790129403926" />
+    </e>
+    <e n="EditorChooseLookupItemReplace">
+      <i c="19" l="1790129368252" />
+    </e>
+    <e n="EditorCopy">
+      <i c="17" l="1790129388321" />
+    </e>
+    <e n="EditorCut">
+      <i c="120" l="1790129250438" />
+    </e>
+    <e n="EditorDelete">
+      <i c="1" l="1788787063197" />
+    </e>
+    <e n="EditorDeleteToLineStart">
+      <i c="3" l="1790129119035" />
+    </e>
+    <e n="EditorDown">
+      <i c="6" l="1790129357372" />
+    </e>
+    <e n="EditorEnter">
+      <i c="18" l="1790129367415" />
+    </e>
+    <e n="EditorLeft">
+      <i c="73" l="1790129401247" />
+    </e>
+    <e n="EditorLineEnd">
+      <i c="6" l="1790129366622" />
+    </e>
+    <e n="EditorPaste">
+      <i c="9" l="1790129390968" />
+    </e>
+    <e n="EditorRight">
+      <i c="55" l="1790129401694" />
+    </e>
+    <e n="EditorUp">
+      <i c="10" l="1790129383632" />
+    </e>
+    <e n="EditorUpWithSelection">
+      <i c="4" l="1788787210218" />
+    </e>
+    <e n="ExternalSystem.ProjectRefreshAction">
+      <i c="7" l="1788787812246" />
+    </e>
+    <e n="Find">
+      <i c="1" l="1788787317209" />
+    </e>
+    <e n="GotoDeclaration">
+      <i c="5" l="1788786996986" />
+    </e>
+    <e n="OpenFile">
+      <i c="1" l="1787795574362" />
+    </e>
+    <e n="Rerun">
+      <i c="20" l="1788787535595" />
+    </e>
+    <e n="Run">
+      <i c="5" l="1788787742228" />
+    </e>
+    <e n="SaveDocument">
+      <i c="117" l="1790130214615" />
+    </e>
+    <e n="SearchEverywhere">
+      <i c="1" l="1787710430789" />
+    </e>
+    <e n="ShowIntentionActions">
+      <i c="3" l="1788786536949" />
+    </e>
+    <e n="ShowProjectStructureSettings">
+      <i c="4" l="1790130177419" />
+    </e>
+    <e n="Tree-selectChild">
+      <i c="1" l="1788786045245" />
+    </e>
+    <e n="WelcomeScreen.CreateNewProject">
+      <i c="2" l="1788786348933" />
+    </e>
+    <e n="WelcomeScreen.OpenProject">
+      <i c="1" l="1787709239877" />
+    </e>
+    <e n="com.intellij.find.SearchReplaceComponent$CloseAction">
+      <i c="1" l="1788787319956" />
+    </e>
+    <e n="com.intellij.ide.ReopenProjectAction">
+      <i c="1" l="1787801130428" />
+    </e>
+    <e n="com.intellij.ide.startup.importSettings.chooser.productChooser.ExpChooserAction">
+      <i c="1" l="1787708943569" />
+    </e>
+    <e n="com.intellij.openapi.fileEditor.impl.tabActions.CloseTab">
+      <i c="14" l="1790130410822" />
+    </e>
+    <e n="com.intellij.openapi.project.DumbAwareAction$SimpleDumbAwareAction">
+      <i c="1" l="1787710441013" />
+    </e>
+    <e n="com.intellij.openapi.roots.ui.configuration.artifacts.ArtifactsStructureConfigurable$AddArtifactAction">
+      <i c="1" l="1790130182452" />
+    </e>
+    <e n="com.intellij.openapi.roots.ui.configuration.projectRoot.BaseStructureConfigurable$MyRemoveAction">
+      <i c="1" l="1790130180106" />
+    </e>
+    <e n="com.intellij.openapi.ui.MasterDetailsComponent$MyActionGroupWrapper">
+      <i c="1" l="1790130181038" />
+    </e>
+    <e n="com.intellij.openapi.wm.impl.SquareAnActionButton">
+      <i c="2" l="1788787350479" />
+    </e>
+    <e n="com.intellij.ui.CommonActionsPanel$AddButton">
+      <i c="2" l="1790128924190" />
+    </e>
+    <e n="com.intellij.ui.dsl.builder.components.SegmentedButtonAction">
+      <i c="1" l="1788786353385" />
+    </e>
+    <e n="com.intellij.xdebugger.impl.breakpoints.RemoveBreakpointGutterIconAction">
+      <i c="1" l="1788786277228" />
+    </e>
+  </component>
+</application>

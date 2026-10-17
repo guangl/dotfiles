@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AssistiveControlType</key>
+	<integer>2</integer>
+	<key>History</key>
+	<dict>
+		<key>MouseKeys</key>
+		<array>
+			<dict>
+				<key>Date</key>
+				<string>2026-10-13 17:56:53</string>
+				<key>Reason</key>
+				<string>LoadingPrefsA</string>
+				<key>State</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>Date</key>
+				<string>2026-10-13 19:42:13</string>
+				<key>Reason</key>
+				<string>LoadingPrefsA</string>
+				<key>State</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>Date</key>
+				<string>2026-10-13 19:42:14</string>
+				<key>Reason</key>
+				<string>SessionChangedIsDisabled</string>
+				<key>State</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>Date</key>
+				<string>2026-10-13 19:42:14</string>
+				<key>Reason</key>
+				<string>SessionChangedIsDisabled</string>
+				<key>State</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>Date</key>
+				<string>2026-10-13 19:42:14</string>
+				<key>Reason</key>
+				<string>SessionChangedIsDisabled</string>
+				<key>State</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>Date</key>
+				<string>2026-10-13 19:57:36</string>
+				<key>Reason</key>
+				<string>LoadingPrefsA</string>
+				<key>State</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>Date</key>
+				<string>2026-10-14 19:49:42</string>
+				<key>Reason</key>
+				<string>LoadingPrefsA</string>
+				<key>State</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>Date</key>
+				<string>2026-10-14 19:49:42</string>
+				<key>Reason</key>
+				<string>SessionChangedIsDisabled</string>
+				<key>State</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>Date</key>
+				<string>2026-10-14 19:49:42</string>
+				<key>Reason</key>
+				<string>SessionChangedIsDisabled</string>
+				<key>State</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>Date</key>
+				<string>2026-10-14 19:49:42</string>
+				<key>Reason</key>
+				<string>SessionChangedIsDisabled</string>
+				<key>State</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>Date</key>
+				<string>2026-10-14 19:53:31</string>
+				<key>Reason</key>
+				<string>LoadingPrefsA</string>
+				<key>State</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>Date</key>
+				<string>2026-10-14 19:53:31</string>
+				<key>Reason</key>
+				<string>SessionChangedIsDisabled</string>
+				<key>State</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>Date</key>
+				<string>2026-10-14 19:53:31</string>
+				<key>Reason</key>
+				<string>SessionChangedIsDisabled</string>
+				<key>State</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>Date</key>
+				<string>2026-10-14 19:53:31</string>
+				<key>Reason</key>
+				<string>SessionChangedIsDisabled</string>
+				<key>State</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>Date</key>
+				<string>2026-10-14 20:03:54</string>
+				<key>Reason</key>
+				<string>LoadingPrefsA</string>
+				<key>State</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>Date</key>
+				<string>2026-10-14 20:03:54</string>
+				<key>Reason</key>
+				<string>SessionChangedIsDisabled</string>
+				<key>State</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>Date</key>
+				<string>2026-10-14 20:03:54</string>
+				<key>Reason</key>
+				<string>SessionChangedIsDisabled</string>
+				<key>State</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>Date</key>
+				<string>2026-10-14 20:03:54</string>
+				<key>Reason</key>
+				<string>SessionChangedIsDisabled</string>
+				<key>State</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>Date</key>
+				<string>2026-10-14 20:09:07</string>
+				<key>Reason</key>
+				<string>LoadingPrefsA</string>
+				<key>State</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>Date</key>
+				<string>2026-10-14 23:48:50</string>
+				<key>Reason</key>
+				<string>LoadingPrefsA</string>
+				<key>State</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>Date</key>
+				<string>2026-10-14 23:48:51</string>
+				<key>Reason</key>
+				<string>SessionChangedIsDisabled</string>
+				<key>State</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>Date</key>
+				<string>2026-10-14 23:48:51</string>
+				<key>Reason</key>
+				<string>SessionChangedIsDisabled</string>
+				<key>State</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>Date</key>
+				<string>2026-10-14 23:48:51</string>
+				<key>Reason</key>
+				<string>SessionChangedIsDisabled</string>
+				<key>State</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>Date</key>
+				<string>2026-10-15 00:04:42</string>
+				<key>Reason</key>
+				<string>LoadingPrefsA</string>
+				<key>State</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>Date</key>
+				<string>2026-10-15 18:47:41</string>
+				<key>Reason</key>
+				<string>LoadingPrefsA</string>
+				<key>State</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>Date</key>
+				<string>2026-10-15 18:47:43</string>
+				<key>Reason</key>
+				<string>SessionChangedIsDisabled</string>
+				<key>State</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>Date</key>
+				<string>2026-10-15 18:47:43</string>
+				<key>Reason</key>
+				<string>SessionChangedIsDisabled</string>
+				<key>State</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>Date</key>
+				<string>2026-10-15 18:47:43</string>
+				<key>Reason</key>
+				<string>SessionChangedIsDisabled</string>
+				<key>State</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>Date</key>
+				<string>2026-10-15 19:05:27</string>
+				<key>Reason</key>
+				<string>LoadingPrefsA</string>
+				<key>State</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>Date</key>
+				<string>2026-10-15 21:09:19</string>
+				<key>Reason</key>
+				<string>LoadingPrefsA</string>
+				<key>State</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>Date</key>
+				<string>2026-10-15 21:09:19</string>
+				<key>Reason</key>
+				<string>SessionChangedIsDisabled</string>
+				<key>State</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>Date</key>
+				<string>2026-10-15 21:09:19</string>
+				<key>Reason</key>
+				<string>SessionChangedIsDisabled</string>
+				<key>State</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>Date</key>
+				<string>2026-10-15 21:09:19</string>
+				<key>Reason</key>
+				<string>SessionChangedIsDisabled</string>
+				<key>State</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>Date</key>
+				<string>2026-10-15 21:25:09</string>
+				<key>Reason</key>
+				<string>LoadingPrefsA</string>
+				<key>State</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>Date</key>
+				<string>2026-10-15 21:53:43</string>
+				<key>Reason</key>
+				<string>LoadingPrefsA</string>
+				<key>State</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>Date</key>
+				<string>2026-10-15 21:53:44</string>
+				<key>Reason</key>
+				<string>SessionChangedIsDisabled</string>
+				<key>State</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>Date</key>
+				<string>2026-10-15 21:53:44</string>
+				<key>Reason</key>
+				<string>SessionChangedIsDisabled</string>
+				<key>State</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>Date</key>
+				<string>2026-10-15 21:53:44</string>
+				<key>Reason</key>
+				<string>SessionChangedIsDisabled</string>
+				<key>State</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>Date</key>
+				<string>2026-10-15 22:08:59</string>
+				<key>Reason</key>
+				<string>LoadingPrefsA</string>
+				<key>State</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>Date</key>
+				<string>2026-10-16 09:25:37</string>
+				<key>Reason</key>
+				<string>LoadingPrefsA</string>
+				<key>State</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>Date</key>
+				<string>2026-10-16 09:25:38</string>
+				<key>Reason</key>
+				<string>SessionChangedIsDisabled</string>
+				<key>State</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>Date</key>
+				<string>2026-10-16 09:25:38</string>
+				<key>Reason</key>
+				<string>SessionChangedIsDisabled</string>
+				<key>State</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>Date</key>
+				<string>2026-10-16 09:25:38</string>
+				<key>Reason</key>
+				<string>SessionChangedIsDisabled</string>
+				<key>State</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>Date</key>
+				<string>2026-10-16 09:41:15</string>
+				<key>Reason</key>
+				<string>LoadingPrefsA</string>
+				<key>State</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>Date</key>
+				<string>2026-10-17 10:04:37</string>
+				<key>Reason</key>
+				<string>LoadingPrefsA</string>
+				<key>State</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>Date</key>
+				<string>2026-10-17 11:15:52</string>
+				<key>Reason</key>
+				<string>LoadingPrefsA</string>
+				<key>State</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>Date</key>
+				<string>2026-10-17 11:15:52</string>
+				<key>Reason</key>
+				<string>SessionChangedIsDisabled</string>
+				<key>State</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>Date</key>
+				<string>2026-10-17 11:15:52</string>
+				<key>Reason</key>
+				<string>SessionChangedIsDisabled</string>
+				<key>State</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>Date</key>
+				<string>2026-10-17 11:15:52</string>
+				<key>Reason</key>
+				<string>SessionChangedIsDisabled</string>
+				<key>State</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>Date</key>
+				<string>2026-10-17 11:31:05</string>
+				<key>Reason</key>
+				<string>LoadingPrefsA</string>
+				<key>State</key>
+				<false/>
+			</dict>
+		</array>
+	</dict>
+	<key>closeViewHotkeysEnabled</key>
+	<false/>
+	<key>closeViewZoomDisplayID</key>
+	<integer>0</integer>
+	<key>closeViewZoomFactor</key>
+	<real>1</real>
+	<key>com.apple.custommenu.apps</key>
+	<array>
+		<string>NSGlobalDomain</string>
+	</array>
+	<key>dwellEnabled</key>
+	<false/>
+	<key>liveSpeechEnabled</key>
+	<false/>
+	<key>login</key>
+	<false/>
+	<key>mouseDriver</key>
+	<false/>
+	<key>sessionChange</key>
+	<false/>
+	<key>slowKey</key>
+	<false/>
+	<key>slowKeyDelay</key>
+	<integer>250</integer>
+	<key>stickyKey</key>
+	<false/>
+	<key>switchOnOffKey</key>
+	<false/>
+	<key>useStickyKeysShortcutKeys</key>
+	<false/>
+	<key>virtualKeyboardOnOff</key>
+	<false/>
+</dict>
+</plist>

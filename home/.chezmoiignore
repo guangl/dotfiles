@@ -1,0 +1,15 @@
+# Only platform-specific entries are needed here: everything else in the repo
+# (README, scripts, macos/, Brewfile, install scripts) lives outside home/,
+# which is the chezmoi source directory.
+
+{{- if eq .chezmoi.os "windows" }}
+dot_zshrc
+dot_zimrc
+dot_config/ghostty
+dot_config/fish
+dot_config/jgit
+dot_local
+Library
+{{- else }}
+Documents/PowerShell/Microsoft.PowerShell_profile.ps1
+{{- end }}
