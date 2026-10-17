@@ -9,7 +9,6 @@ dot_config/ghostty
 dot_config/fish
 dot_config/jgit
 dot_local
-Library
 {{- else }}
 Documents/PowerShell/Microsoft.PowerShell_profile.ps1
 {{- end }}

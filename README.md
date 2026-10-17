@@ -15,7 +15,6 @@ home/                        # everything that lands in $HOME
   .chezmoi.toml.tmpl         # prompts for hostname_role / email on init
   .chezmoiignore             # platform-specific exclusions (Windows/macOS)
   dot_zshrc, dot_config/…    # chezmoi source names
-  Library/…                  # macOS app preferences that are plain files
 scripts/sync_home.py         # reproducible capture from a live machine
 Brewfile, packages.csv       # package lists
 install.sh, install.ps1      # one-shot bootstrap
@@ -34,7 +33,6 @@ mode through the `private_` prefix (`home/dot_config/private_atuin/private_confi
 | Shell | `dot_zshrc`, `dot_zprofile`, `dot_profile`, `dot_zimrc`, `dot_config/fish/conf.d/uv.env.fish`, `dot_local/share/zsh/site-functions/_dm` | `~/.zshrc`, `~/.zprofile`, `~/.profile`, `~/.zimrc`, `~/.config/fish/conf.d/uv.env.fish`, `~/.local/share/zsh/site-functions/_dm` |
 | Prompt / terminal | `dot_config/starship`, `dot_config/zellij`, `dot_config/ghostty` | `~/.config/{starship,zellij,ghostty}` |
 | Shell history | `dot_config/private_atuin/private_config.toml` | `~/.config/atuin/config.toml` (0600) |
-| JetBrains | `Library/Application Support/JetBrains/IntelliJIdea2026.2/{options,disabled_plugins.txt}` (recent projects and window state excluded) | IDE settings |
 | Neovim | `dot_config/nvim` (AstroNvim) | `~/.config/nvim` |
 | Git / SSH | `dot_gitconfig`, `dot_config/git/ignore`, `dot_config/jgit/config`, `dot_config/gh/private_config.yml`, `dot_ssh/config`, `dot_ssh/id_ed25519.pub` | `~/.gitconfig`, `~/.config/{git,jgit,gh}`, `~/.ssh/{config,id_ed25519.pub}` |
 | Containers / runtimes | `dot_docker/private_config.json`, `dot_rustup/settings.toml` | `~/.docker/config.json` (0600), `~/.rustup/settings.toml` |
@@ -56,8 +54,8 @@ creates the `~/.claude/skills/weread-skills` symlink that Claude Code needs.
   `.bash_history`, `.viminfo`), caches, `node_modules`, VS Code extension
   binaries, the bulk of `~/Library/Preferences`, and the parts of
   `~/Library/Application Support` that are state rather than configuration
-  (browser profiles, Alfred's 35 MB preferences bundle, JetBrains' 500 MB cache
-  tree, SQLite session databases).
+  (browser profiles, Alfred's 35 MB preferences bundle, IDE caches, SQLite
+  session databases).
 - redacted in place: anything matching a known token shape (`wrk-`, `sk-`,
   `github_pat_`, `gh[pousr]_`, `AKIA…`, `xox[baprs]-`) is replaced with
   `REDACTED` before it is written. Today that affects
@@ -109,11 +107,10 @@ On first run, `chezmoi init` prompts for `hostname_role` and `email`.
 
 ## Platform support
 
-- **macOS**: full setup — zsh + zim, ghostty, JetBrains.
+- **macOS**: full setup — zsh + zim, ghostty, and the CLI toolchain.
 - **Windows** (native PowerShell, no WSL): starship, atuin, zellij, espanso and
-  the eza alias via the PowerShell profile. zsh/zim, ghostty, fish, jgit,
-  `~/.local`, and `~/Library` are skipped by
-  [`home/.chezmoiignore`](./home/.chezmoiignore).
+  the eza alias via the PowerShell profile. zsh/zim, ghostty, fish, jgit and
+  `~/.local` are skipped by [`home/.chezmoiignore`](./home/.chezmoiignore).
 
 ## Requirements
 

@@ -41,8 +41,6 @@ MANIFEST = [
     ".ssh/id_ed25519.pub",
     # --- editors -----------------------------------------------------------
     ".config/nvim",
-    "Library/Application Support/JetBrains/IntelliJIdea2026.2/options",
-    "Library/Application Support/JetBrains/IntelliJIdea2026.2/disabled_plugins.txt",
     # --- tools -------------------------------------------------------------
     ".docker/config.json",
     ".rustup/settings.toml",
@@ -65,17 +63,9 @@ MANIFEST = [
 ]
 
 # Never copied even when they live inside a manifest directory.
-EXCLUDE_DIRS = {"node_modules", "__pycache__", ".git", ".system", "reports", "globalStorage"}
+EXCLUDE_DIRS = {"node_modules", "__pycache__", ".git", ".system", "reports"}
 EXCLUDE_NAMES = {".DS_Store"}
 EXCLUDE_PREFIXES = (".backup-",)
-
-# Individual files inside a manifest directory that are session state rather
-# than configuration (recent projects, window geometry).
-SKIP_REL = {
-    "Library/Application Support/JetBrains/IntelliJIdea2026.2/options/recentProjects.xml",
-    "Library/Application Support/JetBrains/IntelliJIdea2026.2/options/window.state.xml",
-    "Library/Application Support/JetBrains/IntelliJIdea2026.2/options/other.xml",
-}
 
 # Credential-looking strings are replaced before anything lands in the repo.
 # The repository is public, so treat every captured file as world-readable.
@@ -190,8 +180,6 @@ def copy_path(rel: str, stats: dict[str, int]) -> None:
                     continue
                 file_path = root_path / name
                 child = file_path.relative_to(HOME)
-                if str(child) in SKIP_REL:
-                    continue
                 outcome = copy_file(file_path, SOURCE / chezmoi_name(str(child)))
                 stats[outcome] += 1
                 if outcome == "redacted":
