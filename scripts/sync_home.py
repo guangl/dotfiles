@@ -86,12 +86,28 @@ TEXT_SUFFIXES = {
     ".pub", ".ignore", ".gitconfig", ".vim", ".jsx", ".tsx", ".ps1",
 }
 
+# Files that are 0600 on the machine. chezmoi only recreates that mode when a
+# path component carries the private_ prefix, so keep the explicit mapping.
+PRIVATE_FILES = {
+    ".config/atuin/config.toml": "dot_config/private_atuin/private_config.toml",
+    ".config/gh/config.yml": "dot_config/gh/private_config.yml",
+    ".docker/config.json": "dot_docker/private_config.json",
+    ".claude/settings.json": "dot_claude/private_settings.json",
+    ".codex/config.toml": "dot_codex/private_config.toml",
+}
+
+# Handled by run_once_after_setup-claude-skills.sh instead: a dangling relative
+# symlink in the source tree makes chezmoi walk fail.
+SKIP_PATHS = {".claude/skills/weread-skills"}
+
 DRY_RUN = "--dry-run" in sys.argv
 
 
 def chezmoi_name(rel: str) -> str:
     """Map a $HOME-relative path to its chezmoi source path."""
     parts = []
+    if rel in PRIVATE_FILES:
+        return PRIVATE_FILES[rel]
     for part in Path(rel).parts:
         parts.append("dot_" + part[1:] if part.startswith(".") else part)
     return str(Path(*parts))
@@ -151,6 +167,8 @@ def copy_path(rel: str, stats: dict[str, int]) -> None:
                     continue
                 child_dir = root_path / d
                 if child_dir.is_symlink():
+                    if str(child_dir.relative_to(HOME)) in SKIP_PATHS:
+                        continue
                     child = child_dir.relative_to(HOME)
                     outcome = copy_file(child_dir, REPO / chezmoi_name(str(child)))
                     stats[outcome] += 1
