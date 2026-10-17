@@ -47,7 +47,7 @@ creates the `~/.claude/skills/weread-skills` symlink that Claude Code needs.
 - redacted in place: anything matching a known token shape (`wrk-`, `sk-`,
   `github_pat_`, `gh[pousr]_`, `AKIA…`, `xox[baprs]-`) is replaced with
   `REDACTED` by the capture script before it is written. Today that affects
-  `dot_claude/settings.json` and `dot_codex/config.toml` (`WEREAD_API_KEY`).
+  `dot_claude/private_settings.json` and `dot_codex/private_config.toml` (`WEREAD_API_KEY`).
 
 After applying on a new machine, put real values back locally (or export them
 from your shell environment); re-running the capture script will redact them
