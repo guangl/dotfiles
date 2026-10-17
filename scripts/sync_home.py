@@ -41,21 +41,14 @@ MANIFEST = [
     ".ssh/id_ed25519.pub",
     # --- editors -----------------------------------------------------------
     ".config/nvim",
-    "Library/Application Support/Code/User/settings.json",
-    "Library/Application Support/Code/User/keybindings.json",
-    "Library/Application Support/Code/User/tasks.json",
-    "Library/Application Support/Code/User/snippets",
-    "Library/Application Support/Code/User/profiles",
     "Library/Application Support/JetBrains/IntelliJIdea2026.2/options",
     "Library/Application Support/JetBrains/IntelliJIdea2026.2/disabled_plugins.txt",
-    ".vscode/argv.json",
     # --- tools -------------------------------------------------------------
     ".docker/config.json",
     ".rustup/settings.toml",
     ".config/chezmoi/chezmoi.toml",
     ".config/billion-context/billion-context.json",
     ".config/mimocode/mimocode.jsonc",
-    ".copilot/config.json",
     # --- AI coding agents --------------------------------------------------
     ".claude/settings.json",
     ".claude/skills",

@@ -16,7 +16,6 @@ home/                        # everything that lands in $HOME
   .chezmoiignore             # platform-specific exclusions (Windows/macOS)
   dot_zshrc, dot_config/…    # chezmoi source names
   Library/…                  # macOS app preferences that are plain files
-macos/                       # system preference plists + capture/restore scripts
 scripts/sync_home.py         # reproducible capture from a live machine
 Brewfile, packages.csv       # package lists
 install.sh, install.ps1      # one-shot bootstrap
@@ -35,14 +34,12 @@ mode through the `private_` prefix (`home/dot_config/private_atuin/private_confi
 | Shell | `dot_zshrc`, `dot_zprofile`, `dot_profile`, `dot_zimrc`, `dot_config/fish/conf.d/uv.env.fish`, `dot_local/share/zsh/site-functions/_dm` | `~/.zshrc`, `~/.zprofile`, `~/.profile`, `~/.zimrc`, `~/.config/fish/conf.d/uv.env.fish`, `~/.local/share/zsh/site-functions/_dm` |
 | Prompt / terminal | `dot_config/starship`, `dot_config/zellij`, `dot_config/ghostty` | `~/.config/{starship,zellij,ghostty}` |
 | Shell history | `dot_config/private_atuin/private_config.toml` | `~/.config/atuin/config.toml` (0600) |
-| VS Code | `Library/Application Support/Code/User`: `settings.json`, `keybindings.json`, `tasks.json`, `snippets/`, `profiles/` | `~/Library/Application Support/Code/User/…` |
 | JetBrains | `Library/Application Support/JetBrains/IntelliJIdea2026.2/{options,disabled_plugins.txt}` (recent projects and window state excluded) | IDE settings |
 | Neovim | `dot_config/nvim` (AstroNvim) | `~/.config/nvim` |
 | Git / SSH | `dot_gitconfig`, `dot_config/git/ignore`, `dot_config/jgit/config`, `dot_config/gh/private_config.yml`, `dot_ssh/config`, `dot_ssh/id_ed25519.pub` | `~/.gitconfig`, `~/.config/{git,jgit,gh}`, `~/.ssh/{config,id_ed25519.pub}` |
 | Containers / runtimes | `dot_docker/private_config.json`, `dot_rustup/settings.toml` | `~/.docker/config.json` (0600), `~/.rustup/settings.toml` |
-| Small tools | `dot_config/{chezmoi,billion-context,mimocode,espanso}`, `dot_copilot/config.json`, `dot_vscode/argv.json` | matching paths under `~/.config`, `~/.copilot`, `~/.vscode` |
+| Small tools | `dot_config/{chezmoi,billion-context,mimocode,espanso}` | matching paths under `~/.config` |
 | AI coding agents | `dot_claude/{private_settings.json,skills}`, `dot_codex/{private_config.toml,keybindings.json,AGENTS.md}`, `dot_agents/skills`, `dot_codewhale/config.toml`, `dot_dsh/profiles/web` (config only, no `node_modules`) | `~/.claude`, `~/.codex`, `~/.agents/skills`, `~/.codewhale`, `~/.dsh/profiles/web` |
-| macOS defaults | `macos/defaults/*.plist` (15 domains, XML), `macos/capture.sh`, `macos/restore.sh` | `defaults import`; see [macos/README.md](./macos/README.md) |
 | Packages | `Brewfile`, `packages.csv`, `install.sh`, `install.ps1` | package managers |
 | Windows | `Documents/PowerShell/Microsoft.PowerShell_profile.ps1` | PowerShell profile |
 
@@ -87,7 +84,6 @@ add a path there when you start configuring something new.
 chezmoi init https://github.com/guangl/dotfiles.git
 chezmoi diff
 chezmoi apply
-./macos/restore.sh                       # macOS system preferences
 ```
 
 ## One-shot bootstrap (new machine)
@@ -113,7 +109,7 @@ On first run, `chezmoi init` prompts for `hostname_role` and `email`.
 
 ## Platform support
 
-- **macOS**: full setup — zsh + zim, ghostty, VS Code, JetBrains, macOS defaults.
+- **macOS**: full setup — zsh + zim, ghostty, JetBrains.
 - **Windows** (native PowerShell, no WSL): starship, atuin, zellij, espanso and
   the eza alias via the PowerShell profile. zsh/zim, ghostty, fish, jgit,
   `~/.local`, and `~/Library` are skipped by
