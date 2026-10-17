@@ -11,8 +11,10 @@ Snapshotted from a MacBook Air (macOS) in October 2026 and kept in sync with
 
 Source files use chezmoi naming: a leading `.` in the name is written as
 `dot_`, so `dot_zshrc` becomes `~/.zshrc` and `dot_config/ghostty` becomes
-`~/.config/ghostty`. Files that should be created with mode `0600` use the
-`private_` prefix (`dot_config/private_atuin/private_config.toml`).
+`~/.config/ghostty`. Files that are `0600` on the machine keep that mode via the `private_`
+prefix: `dot_config/private_atuin/private_config.toml` →
+`~/.config/atuin/config.toml`, `dot_claude/private_settings.json` →
+`~/.claude/settings.json`, and so on.
 
 ## What is captured
 
@@ -22,10 +24,10 @@ Source files use chezmoi naming: a leading `.` in the name is written as
 | Prompt / terminal | `dot_config/starship`, `dot_config/zellij`, `dot_config/ghostty` | `~/.config/{starship,zellij,ghostty}` |
 | Shell history | `dot_config/private_atuin/private_config.toml` | `~/.config/atuin/config.toml` (mode 0600) |
 | Editors | `dot_config/nvim` (AstroNvim), `Library/Application Support/Code/User/{settings.json,keybindings.json,snippets}`, `dot_vscode/argv.json` | `~/.config/nvim`, `~/Library/Application Support/Code/User/...`, `~/.vscode/argv.json` |
-| Git / SSH | `dot_gitconfig`, `dot_config/git/ignore`, `dot_config/jgit/config`, `dot_config/gh/config.yml`, `dot_ssh/config`, `dot_ssh/id_ed25519.pub` | `~/.gitconfig`, `~/.config/{git,jgit,gh}`, `~/.ssh/config`, `~/.ssh/id_ed25519.pub` |
-| Containers / runtimes | `dot_docker/config.json`, `dot_rustup/settings.toml` | `~/.docker/config.json`, `~/.rustup/settings.toml` |
+| Git / SSH | `dot_gitconfig`, `dot_config/git/ignore`, `dot_config/jgit/config`, `dot_config/gh/private_config.yml`, `dot_ssh/config`, `dot_ssh/id_ed25519.pub` | `~/.gitconfig`, `~/.config/{git,jgit,gh}`, `~/.ssh/config`, `~/.ssh/id_ed25519.pub` |
+| Containers / runtimes | `dot_docker/private_config.json`, `dot_rustup/settings.toml` | `~/.docker/config.json` (0600), `~/.rustup/settings.toml` |
 | Small tools | `dot_config/{billion-context,mimocode,espanso}` | matching `~/.config` directories |
-| AI coding agents | `dot_claude/settings.json`, `dot_claude/skills`, `dot_codex/{config.toml,keybindings.json,AGENTS.md}`, `dot_agents/skills`, `dot_dsh/profiles/web` (profile config only, no `node_modules`) | `~/.claude`, `~/.codex`, `~/.agents/skills`, `~/.dsh/profiles/web` |
+| AI coding agents | `dot_claude/{private_settings.json,skills}`, `dot_codex/{private_config.toml,keybindings.json,AGENTS.md}`, `dot_agents/skills`, `dot_dsh/profiles/web` (profile config only, no `node_modules`) | `~/.claude`, `~/.codex`, `~/.agents/skills`, `~/.dsh/profiles/web` |
 | macOS defaults | `macos/defaults/*.plist` (11 domains), `macos/restore.sh` | imported with `defaults import`; see [macos/README.md](./macos/README.md) |
 | Packages | `Brewfile`, `packages.csv`, `install.sh`, `install.ps1` | package managers |
 | Windows | `Documents/PowerShell/Microsoft.PowerShell_profile.ps1` | PowerShell profile |
