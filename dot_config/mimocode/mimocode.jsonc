@@ -1,0 +1,21 @@
+{
+  "$schema": "https://mimo.xiaomi.com/mimocode/config.json",
+  "provider": {
+    "dameng": {
+      "name": "dameng",
+      "env": [
+        "DAMENG_API_KEY"
+      ],
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "baseURL": "http://tprd-newapi.dameng.com/v1",
+        "setCacheKey": true
+      },
+      "models": {
+        "deepseek-v4-pro": {
+          "name": "deepseek-v4-pro"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,271 @@
+{
+  ///
+  // "vscode general"
+  ///
+  // "vscode editor"
+  "editor.inlineSuggest.enabled": true,
+  "editor.fontSize": 24,
+  "editor.fontFamily": "Fira Code,霞鹜文楷",
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
+  "editor.formatOnType": true,
+  "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
+  "editor.foldingImportsByDefault": true,
+  "editor.smoothScrolling": true,
+  "editor.cursorSmoothCaretAnimation": "explicit",
+  "editor.wordWrap": "wordWrapColumn",
+  "editor.unicodeHighlight.nonBasicASCII": false,
+  "editor.inlayHints.fontFamily": "Fira Code,霞鹜文楷",
+  // "vscode files"
+  "files.autoSave": "onFocusChange",
+  "files.trimFinalNewlines": true,
+  "files.trimTrailingWhitespace": true,
+  // "vscode explorer"
+  "explorer.confirmDragAndDrop": false,
+  "explorer.incrementalNaming": "smart",
+  "explorer.confirmDelete": false,
+  // "vscode git"
+  "git.autofetch": true,
+  "git.confirmSync": false,
+  "git.enableSmartCommit": true,
+  "merge-conflict.autoNavigateNextConflict.enabled": true,
+  // "vscode workbench"
+  "workbench.commandPalette.preserveInput": true,
+  "workbench.list.smoothScrolling": true,
+  "workbench.quickOpen.preserveInput": true,
+  "workbench.editor.wrapTabs": true,
+  "workbench.iconTheme": "ayu",
+  // "vscode window"
+  "window.openFilesInNewWindow": "on",
+  // "vscode problems"
+  "problems.showCurrentInStatus": true,
+  // "vscode search"
+  "search.experimental.closedNotebookRichContentResults": true,
+  "search.searchEditor.reusePriorSearchConfiguration": true,
+  "search.showLineNumbers": true,
+  "search.smartCase": true,
+  "search.seedWithNearestWord": true,
+  "search.useGlobalIgnoreFiles": true,
+  "search.useParentIgnoreFiles": true,
+  "search.quickAccess.preserveInput": true,
+  // "vscode timeline"
+  "timeline.pageOnScroll": true,
+  // "vscode extensions"
+  "extensions.experimental.deferredStartupFinishedActivation": true,
+  "extensions.ignoreRecommendations": true,
+  // "vscode security"
+  "security.workspace.trust.untrustedFiles": "open",
+  // "vscode application"
+  "application.experimental.rendererProfiling": true,
+  // "extension rust-analyzer"
+  "rust-analyzer.completion.limit": 5,
+  "rust-analyzer.hover.actions.references.enable": true,
+  "rust-analyzer.inlayHints.expressionAdjustmentHints.hideOutsideUnsafe": true,
+  "rust-analyzer.lens.references.trait.enable": true,
+  "rust-analyzer.lens.references.method.enable": true,
+  "rust-analyzer.lens.references.enumVariant.enable": true,
+  "rust-analyzer.lens.references.adt.enable": true,
+  "rust-analyzer.restartServerOnConfigChange": true,
+  "rust-analyzer.server.extraEnv": {
+    "PATH": "/Users/luoguang/.cargo/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+  },
+  "rust-analyzer.rustfmt.rangeFormatting.enable": true,
+  "rust-analyzer.semanticHighlighting.operator.specialization.enable": true,
+  "rust-analyzer.semanticHighlighting.punctuation.enable": true,
+  "rust-analyzer.semanticHighlighting.punctuation.separate.macro.bang": true,
+  "rust-analyzer.semanticHighlighting.punctuation.specialization.enable": true,
+  // "extension lldb"
+  "lldb.suppressUpdateNotifications": true,
+  // "every file extensions"
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "[sql]": {
+    "editor.defaultFormatter": "adpyke.vscode-sql-formatter"
+  },
+  "python.analysis.typeCheckingMode": "standard",
+  "chat.mcp.serverSampling": {
+    "Code 中的全局: figma": {
+      "allowedModels": [
+        "github.copilot-chat/claude-3.5-sonnet"
+      ]
+    }
+  },
+  "redhat.telemetry.enabled": true,
+  "workbench.editor.empty.hint": "hidden",
+  "chat.editing.confirmEditRequestRetry": false,
+  "security.allowedUNCHosts": [
+    "192.168.15.101",
+    "wsl.localhost"
+  ],
+  "explorer.confirmPasteNative": false,
+  "extensions.experimental.affinity": {
+    "asvetliakov.vscode-neovim": 1
+  },
+  "rust-analyzer.showDependenciesExplorer": false,
+  "rust-analyzer.completion.hideDeprecated": true,
+  "rust-analyzer.diagnostics.enable": false,
+  "rust-analyzer.inlayHints.chainingHints.enable": false,
+  "rust-analyzer.inlayHints.closingBraceHints.enable": false,
+  "rust-analyzer.inlayHints.genericParameterHints.const.enable": false,
+  "rust-analyzer.inlayHints.parameterHints.enable": false,
+  "rust-analyzer.inlayHints.renderColons": false,
+  "rust-analyzer.inlayHints.typeHints.enable": false,
+  "chat.tools.terminal.autoApprove": {
+    "cargo bench": true,
+    "cargo clippy": true,
+    "cargo test": true,
+    "cargo tree": true,
+    "cargo update": true,
+    "cargo build": true,
+    "cargo search": true,
+    "cargo check": true,
+    "git checkout": true,
+    "cargo llvm-cov": true,
+    "cargo tarpaulin": true,
+    "Move-Item": true,
+    "mv": true,
+    "ForEach-Object": true,
+    "$count": true,
+    "\"$name": true,
+    "Copy-Item": true,
+    "Get-Item": true,
+    "Expression={(Get-Content": true,
+    "New-Item": true,
+    "Out-Null": true,
+    "Get-ChildItem reports\\*.html | Sort-Object LastWriteTime -Descending | Select-Object -First 1 | ForEach-Object { $_.FullName }": {
+      "approve": true,
+      "matchCommandLine": true
+    },
+    "error\"": true,
+    "Get-ChildItem reports\\*.html | Sort-Object LastWriteTime -Descending | Select-Object -First 1 | ForEach-Object { start $_.FullName }": {
+      "approve": true,
+      "matchCommandLine": true
+    },
+    "Finished": true,
+    "@'": true,
+    "mod": true,
+    "use": true,
+    "#[derive(Parser)]": true,
+    "match": true,
+    "{": true,
+    "}": true,
+    "(\"🚀": true,
+    "println": true,
+    "(\"📂": true,
+    "//": true,
+    "test_dir,": true,
+    "Out-File": true,
+    "git add": true,
+    "git commit": true,
+    "git push": true,
+    "git tag": true,
+    "$lines": true,
+    "query": true,
+    "$line154": true,
+    "$content": true,
+    "$caseNum": true,
+    "$sqlIdx": true,
+    "foreach($line": true,
+    "if($caseNum": true,
+    "$lines = Select-String -Path \"tests\\expression\\numeric_expression_tests.slt\" -Pattern \"^(statement |query )\"; $line154 = $lines[153]; Get-Content \"tests\\expression\\numeric_expression_tests.slt\" | Select-Object -Skip ($line154.LineNumber - 1) -First 5": {
+      "approve": true,
+      "matchCommandLine": true
+    },
+    "cargo run": true,
+    "test_smallint\"": true,
+    "cargo doc": true,
+    "Set-Content": true,
+    "(Get-Content tests\\complex_test.slt -Raw) -replace '(\\d+)\\.00\\s*$', '$1' -replace '(\\d+)\\.00(\\s)', '$1$2' | Set-Content tests\\complex_test.slt": {
+      "approve": true,
+      "matchCommandLine": true
+    },
+    "[System.IO.File]::WriteAllLines(\"$PWD\\tests\\basic\\simple.slt\",": true,
+    "[System.IO.File]::WriteAllLines(\"$PWD\\tests\\advanced\\joins.slt\",": true,
+    "Get-ChildItem tests\\datatype -Recurse -Filter \"test_case_*.test\" | ForEach-Object { Write-Host \"`n$($_.FullName)\"; Get-Content $_.FullName -Head 4 -Encoding UTF8 }": {
+      "approve": true,
+      "matchCommandLine": true
+    },
+    "dir": true,
+    "type": true,
+    "'": true,
+    "let'": true,
+    "输出": true,
+    "git rev-parse": true,
+    "git commit -m \"fix(main): import LogError directly to avoid feature-gated re-export issue\"": {
+      "approve": true,
+      "matchCommandLine": true
+    },
+    "git add src/main.rs && git commit -m \"fix(main): import LogError directly to avoid feature-gated re-export issue\"": {
+      "approve": true,
+      "matchCommandLine": true
+    },
+    "clip": true,
+    "git stash": true,
+    "git rebase": true,
+    "to": true,
+    "sqlite3": true,
+    "Out-String": true
+  },
+  "github.copilot.nextEditSuggestions.enabled": true,
+  "chat.editor.fontSize": 16,
+  "chat.edits2.enabled": true,
+  "chat.mcp.autostart": "newAndOutdated",
+  "chat.agent.maxRequests": 100000,
+  "[dockercompose]": {
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2,
+    "editor.autoIndent": "advanced",
+    "editor.defaultFormatter": "redhat.vscode-yaml"
+  },
+  "[github-actions-workflow]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml"
+  },
+  "workbench.startupEditor": "none",
+  "python.defaultInterpreterPath": "e:\\software\\scoop\\apps\\python\\3.14.2\\python.exe",
+  "settingsSync.ignoredSettings": [
+    "terminal.integrated.profiles.windows",
+    "terminal.integrated.defaultProfile.windows",
+    "terminal.integrated.automationProfile.windows"
+  ],
+  "terminal.integrated.fontSize": 18,
+  "terminal.integrated.fontFamily": "FiraCode Nerd Font Mono",
+  "terminal.integrated.profiles.windows": {
+    "pwsh": {
+      "source": "PowerShell",
+      "path": "E:\\software\\scoop\\apps\\pwsh\\current\\pwsh.exe",
+      "args": []
+    }
+  },
+  "terminal.integrated.defaultProfile.windows": "pwsh",
+  "terminal.integrated.automationProfile.windows": "pwsh",
+  "github.copilot.enable": {
+    "*": true,
+    "plaintext": false,
+    "markdown": false,
+    "scminput": false,
+    "yaml": true
+  },
+  "chat.editing.confirmEditRequestRemoval": false,
+  "git.ignoreRebaseWarning": true,
+  "terminal.integrated.enableMultiLinePasteWarning": "never",
+  "chat.viewSessions.orientation": "stacked",
+  "gitlens.ai.model": "vscode",
+  "gitlens.ai.vscode.model": "copilot:gpt-4.1",
+  "sqltools.useNodeRuntime": true,
+  "http.systemCertificatesNode": true,
+  "geminicodeassist.project": "yttriferous-rookery-gflv3",
+  "geminicodeassist.displayInlineContextHint": false,
+  "workbench.colorTheme": "Ayu Dark Bordered",
+  "chat.agent.enabled": false,
+  "xml.server.preferBinary": true
+}

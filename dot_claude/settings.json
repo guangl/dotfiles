@@ -1,0 +1,9 @@
+{
+  "enableWorkflows": true,
+  "effortLevel": "low",
+  "theme": "dark",
+  "agentPushNotifEnabled": true,
+  "env": {
+    "WEREAD_API_KEY": "REDACTED"
+  }
+}

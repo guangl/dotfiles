@@ -8,5 +8,5 @@ maximize = true
 
 quit-after-last-window-closed = true
 
-macos-icon = "xray"
-
+# Reuse one Zellij session for all Ghostty windows and tabs.
+command = direct:/usr/bin/env -u NO_COLOR /opt/homebrew/bin/zellij attach --create main

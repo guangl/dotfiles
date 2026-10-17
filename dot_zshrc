@@ -1,3 +1,11 @@
+# Keep interactive Ghostty shells colored, including reused Zellij sessions.
+if [[ -o interactive && -t 1 && "${TERM_PROGRAM:-}" == ghostty ]]; then
+  unset NO_COLOR
+fi
+
+# Custom completion definitions must be available before Zim initializes completion.
+fpath=(${XDG_DATA_HOME:-$HOME/.local/share}/zsh/site-functions $fpath)
+
 # ======== ZIM load ==================
 # Zim - A Zsh Configuration Framework
 ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim
@@ -26,9 +34,13 @@ eval "$(atuin init zsh)"
 # ====================================
 #
 # ======== Zellji ====================
-export ZELLIJ_AUTO_ATTACH=false
-export ZELLIJ_AUTO_EXIT=true
-eval "$(zellij setup --generate-auto-start zsh)"
+# Auto-start only in an interactive terminal, never during `zsh -c` probes.
+# Reuse a fixed session so closing/reopening terminals cannot accumulate sessions.
+if [[ -o interactive && -z "${ZSH_EXECUTION_STRING:-}" && -t 0 && -t 1 \
+      && -z "${ZELLIJ:-}" && "${TERM:-dumb}" != dumb ]] \
+      && (( $+commands[zellij] )); then
+  zellij attach --create main
+fi
 # ====================================
 #
 # ======== Espanso ===================
@@ -39,6 +51,16 @@ export ESPANSO_CONFIG_DIR="$HOME/.config/espanso"
 export STARSHIP_CONFIG="$HOME/.config/starship/config.toml"
 # ====================================
 #
+# ======== DNS Pick ==================
+export PATH="/Users/luoguang/.local/bin:$PATH"
+# ====================================
+#
+# ======== Bun =======================
+export PATH="/Users/luoguang/.bun/bin:$PATH"
+#
+# ======== Cargo =====================
+export PATH="/Users/luoguang/.cargo/bin:$PATH"
+#
 # ======== Application end ===========
 
 # ======== Alias =====================
@@ -48,6 +70,7 @@ alias ce='chezmoi edit --apply'
 alias dotedit='nvim $(chezmoi source-path)'
 alias reload='exec zsh'
 # ====================================
+
 
 
 

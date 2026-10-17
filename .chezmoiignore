@@ -1,12 +1,22 @@
-install.sh
-install.ps1
+# Repo plumbing - never applied to $HOME.
+README.md
+LICENSE
+.gitignore
 Brewfile
 packages.csv
+install.sh
+install.ps1
+scripts
+macos
 
 {{- if eq .chezmoi.os "windows" }}
 .zshrc
 .zimrc
 .config/ghostty
+.config/fish
+.config/jgit
+.local
+Library
 {{- else }}
 Documents/PowerShell/Microsoft.PowerShell_profile.ps1
 {{- end }}
