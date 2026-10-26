@@ -26,40 +26,25 @@ MANIFEST = [
     ".zprofile",
     ".profile",
     ".zimrc",
-    ".config/fish/conf.d/uv.env.fish",
     ".config/atuin/config.toml",
     ".config/starship/config.toml",
     ".config/zellij/config.kdl",
     ".config/ghostty/config.ghostty",
     ".local/share/zsh/site-functions/_dm",
-    # --- git / ssh ---------------------------------------------------------
+    # --- git ---------------------------------------------------------------
     ".gitconfig",
     ".config/git/ignore",
     ".config/jgit/config",
     ".config/gh/config.yml",
-    ".ssh/config",
-    ".ssh/id_ed25519.pub",
     # --- editors -----------------------------------------------------------
     ".config/nvim",
     # --- tools -------------------------------------------------------------
     ".docker/config.json",
     ".rustup/settings.toml",
     ".config/chezmoi/chezmoi.toml",
-    ".config/billion-context/billion-context.json",
     ".config/mimocode/mimocode.jsonc",
     # --- AI coding agents --------------------------------------------------
-    ".claude/settings.json",
-    ".claude/skills",
-    ".codex/config.toml",
-    ".codex/keybindings.json",
-    ".codex/AGENTS.md",
     ".agents/skills",
-    ".codewhale/config.toml",
-    ".dsh/profiles/web/cordis.yml",
-    ".dsh/profiles/web/cordis.patch.yml",
-    ".dsh/profiles/web/package.json",
-    ".dsh/profiles/web/pnpm-workspace.yaml",
-    ".dsh/profiles/web/pnpm-lock.yaml",
 ]
 
 # Never copied even when they live inside a manifest directory.
@@ -91,13 +76,7 @@ PRIVATE_FILES = {
     ".config/atuin/config.toml": "dot_config/private_atuin/private_config.toml",
     ".config/gh/config.yml": "dot_config/gh/private_config.yml",
     ".docker/config.json": "dot_docker/private_config.json",
-    ".claude/settings.json": "dot_claude/private_settings.json",
-    ".codex/config.toml": "dot_codex/private_config.toml",
 }
-
-# Handled by run_once_after_setup-claude-skills.sh instead: a dangling relative
-# symlink in the source tree makes chezmoi walk fail.
-SKIP_PATHS = {".claude/skills/weread-skills"}
 
 DRY_RUN = "--dry-run" in sys.argv
 
@@ -167,8 +146,6 @@ def copy_path(rel: str, stats: dict[str, int]) -> None:
                 child_dir = root_path / d
                 if child_dir.is_symlink():
                     child = child_dir.relative_to(HOME)
-                    if str(child) in SKIP_PATHS:
-                        continue
                     outcome = copy_file(child_dir, SOURCE / chezmoi_name(str(child)))
                     stats[outcome] += 1
                     print(f"  {outcome}: {child}")

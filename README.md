@@ -30,19 +30,20 @@ mode through the `private_` prefix (`home/dot_config/private_atuin/private_confi
 
 | Area | Source paths | Lands at |
 | --- | --- | --- |
-| Shell | `dot_zshrc`, `dot_zprofile`, `dot_profile`, `dot_zimrc`, `dot_config/fish/conf.d/uv.env.fish`, `dot_local/share/zsh/site-functions/_dm` | `~/.zshrc`, `~/.zprofile`, `~/.profile`, `~/.zimrc`, `~/.config/fish/conf.d/uv.env.fish`, `~/.local/share/zsh/site-functions/_dm` |
+| Shell | `dot_zshrc`, `dot_zprofile`, `dot_profile`, `dot_zimrc`, `dot_local/share/zsh/site-functions/_dm` | `~/.zshrc`, `~/.zprofile`, `~/.profile`, `~/.zimrc`, `~/.local/share/zsh/site-functions/_dm` |
 | Prompt / terminal | `dot_config/starship`, `dot_config/zellij`, `dot_config/ghostty` | `~/.config/{starship,zellij,ghostty}` |
 | Shell history | `dot_config/private_atuin/private_config.toml` | `~/.config/atuin/config.toml` (0600) |
 | Neovim | `dot_config/nvim` (AstroNvim) | `~/.config/nvim` |
-| Git / SSH | `dot_gitconfig`, `dot_config/git/ignore`, `dot_config/jgit/config`, `dot_config/gh/private_config.yml`, `dot_ssh/config`, `dot_ssh/id_ed25519.pub` | `~/.gitconfig`, `~/.config/{git,jgit,gh}`, `~/.ssh/{config,id_ed25519.pub}` |
+| Git | `dot_gitconfig`, `dot_config/git/ignore`, `dot_config/jgit/config`, `dot_config/gh/private_config.yml` | `~/.gitconfig`, `~/.config/{git,jgit,gh}` |
 | Containers / runtimes | `dot_docker/private_config.json`, `dot_rustup/settings.toml` | `~/.docker/config.json` (0600), `~/.rustup/settings.toml` |
-| Small tools | `dot_config/{chezmoi,billion-context,mimocode,espanso}` | matching paths under `~/.config` |
-| AI coding agents | `dot_claude/{private_settings.json,skills}`, `dot_codex/{private_config.toml,keybindings.json,AGENTS.md}`, `dot_agents/skills`, `dot_codewhale/config.toml`, `dot_dsh/profiles/web` (config only, no `node_modules`) | `~/.claude`, `~/.codex`, `~/.agents/skills`, `~/.codewhale`, `~/.dsh/profiles/web` |
+| Small tools | `dot_config/{chezmoi,mimocode}` | matching paths under `~/.config` |
+| Shared skills | `dot_agents/skills` | `~/.agents/skills` |
 | Packages | `Brewfile`, `packages.csv`, `install.sh`, `install.ps1` | package managers |
 | Windows | `Documents/PowerShell/Microsoft.PowerShell_profile.ps1` | PowerShell profile |
 
-Skills live once in `~/.agents/skills`; `run_once_after_setup-claude-skills.sh`
-creates the `~/.claude/skills/weread-skills` symlink that Claude Code needs.
+Claude, DSH, SSH, CodeWhale, Codex, espanso, fish, and billion-context are
+no longer captured or managed. Their existing HOME directories are left intact.
+Repository documentation lives outside `home/` and is never installed into HOME.
 
 ## Secrets and exclusions
 
@@ -58,9 +59,7 @@ creates the `~/.claude/skills/weread-skills` symlink that Claude Code needs.
   session databases).
 - redacted in place: anything matching a known token shape (`wrk-`, `sk-`,
   `github_pat_`, `gh[pousr]_`, `AKIA…`, `xox[baprs]-`) is replaced with
-  `REDACTED` before it is written. Today that affects
-  `home/dot_claude/private_settings.json` and `home/dot_codex/private_config.toml`
-  (`WEREAD_API_KEY`) and `home/dot_codewhale/config.toml` (an `sk-` API key).
+  `REDACTED` before it is written.
 
 After applying on a new machine, put real values back locally (or export them
 from your shell environment); re-running the capture script redacts them again.
@@ -108,8 +107,8 @@ On first run, `chezmoi init` prompts for `hostname_role` and `email`.
 ## Platform support
 
 - **macOS**: full setup — zsh + zim, ghostty, and the CLI toolchain.
-- **Windows** (native PowerShell, no WSL): starship, atuin, zellij, espanso and
-  the eza alias via the PowerShell profile. zsh/zim, ghostty, fish, jgit and
+- **Windows** (native PowerShell, no WSL): starship, atuin, zellij and
+  the eza alias via the PowerShell profile. zsh/zim, ghostty, jgit and
   `~/.local` are skipped by [`home/.chezmoiignore`](./home/.chezmoiignore).
 
 ## Requirements

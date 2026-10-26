@@ -3,12 +3,25 @@
 # which is the chezmoi source directory.
 
 {{- if eq .chezmoi.os "windows" }}
-dot_zshrc
-dot_zimrc
-dot_config/ghostty
-dot_config/fish
-dot_config/jgit
-dot_local
+.zshrc
+.zimrc
+.config/ghostty
+.config/fish
+.config/jgit
+.local
 {{- else }}
 Documents/PowerShell/Microsoft.PowerShell_profile.ps1
 {{- end }}
+
+# Keep repository documents and retired application data out of HOME.
+README*
+LICENSE*
+.claude
+.dsh
+.ssh
+.codewhale
+.codex
+.config/espanso
+.config/fish
+.billion-context
+.config/billion-context
