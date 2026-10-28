@@ -1,5 +1,3 @@
-if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
-
 -- AstroCore provides a central place to modify mappings, vim options, autocommands, and more!
 -- Configuration documentation can be found with `:h astrocore`
 -- NOTE: We highly recommend setting up the Lua Language Server (`:LspInstall lua_ls`)
@@ -7,79 +5,161 @@ if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
 
 ---@type LazySpec
 return {
-  "AstroNvim/astrocore",
-  ---@type AstroCoreOpts
-  opts = {
-    -- Configure core features of AstroNvim
-    features = {
-      large_buf = { size = 1024 * 256, lines = 10000 }, -- set global limits for large files for disabling features like treesitter
-      autopairs = true, -- enable autopairs at start
-      cmp = true, -- enable completion at start
-      diagnostics = { virtual_text = true, virtual_lines = false }, -- diagnostic settings on startup
-      highlighturl = true, -- highlight URLs at start
-      notifications = true, -- enable notifications at start
-    },
-    -- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
-    diagnostics = {
-      virtual_text = true,
-      underline = true,
-    },
-    -- passed to `vim.filetype.add`
-    filetypes = {
-      -- see `:h vim.filetype.add` for usage
-      extension = {
-        foo = "fooscript",
-      },
-      filename = {
-        [".foorc"] = "fooscript",
-      },
-      pattern = {
-        [".*/etc/foo/.*"] = "fooscript",
-      },
-    },
-    -- vim options can be configured here
-    options = {
-      opt = { -- vim.opt.<key>
-        relativenumber = true, -- sets vim.opt.relativenumber
-        number = true, -- sets vim.opt.number
-        spell = false, -- sets vim.opt.spell
-        signcolumn = "yes", -- sets vim.opt.signcolumn to yes
-        wrap = false, -- sets vim.opt.wrap
-      },
-      g = { -- vim.g.<key>
-        -- configure global vim variables (vim.g)
-        -- NOTE: `mapleader` and `maplocalleader` must be set in the AstroNvim opts or before `lazy.setup`
-        -- This can be found in the `lua/lazy_setup.lua` file
-      },
-    },
-    -- Mappings can be configured through AstroCore as well.
-    -- NOTE: keycodes follow the casing in the vimdocs. For example, `<Leader>` must be capitalized
-    mappings = {
-      -- first key is the mode
-      n = {
-        -- second key is the lefthand side of the map
+	"AstroNvim/astrocore",
+	---@type AstroCoreOpts
+	opts = {
+		-- Configure core features of AstroNvim
+		features = {
+			large_buf = { size = 1024 * 256, lines = 10000 }, -- set global limits for large files for disabling features like treesitter
+			autopairs = true, -- enable autopairs at start
+			cmp = true, -- enable completion at start
+			diagnostics = { virtual_text = true, virtual_lines = false }, -- diagnostic settings on startup
+			highlighturl = true, -- highlight URLs at start
+			notifications = true, -- enable notifications at start
+		},
+		-- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
+		diagnostics = {
+			virtual_text = true,
+			underline = true,
+		},
+		-- passed to `vim.filetype.add`
+		filetypes = {
+			-- see `:h vim.filetype.add` for usage
+			extension = {
+				foo = "fooscript",
+			},
+			filename = {
+				[".foorc"] = "fooscript",
+			},
+			pattern = {
+				[".*/etc/foo/.*"] = "fooscript",
+			},
+		},
+		-- vim options can be configured here
+		options = {
+			opt = { -- vim.opt.<key>
+				relativenumber = true, -- sets vim.opt.relativenumber
+				number = true, -- sets vim.opt.number
+				spell = false, -- sets vim.opt.spell
+				signcolumn = "yes", -- sets vim.opt.signcolumn to yes
+				wrap = false, -- sets vim.opt.wrap
+			},
+			g = { -- vim.g.<key>
+				-- configure global vim variables (vim.g)
+				-- NOTE: `mapleader` and `maplocalleader` must be set in the AstroNvim opts or before `lazy.setup`
+				-- This can be found in the `lua/lazy_setup.lua` file
+			},
+		},
+		-- Mappings can be configured through AstroCore as well.
+		-- NOTE: keycodes follow the casing in the vimdocs. For example, `<Leader>` must be capitalized
+		mappings = {
+			-- first key is the mode
+			n = {
+				-- second key is the lefthand side of the map
 
-        -- navigate buffer tabs
-        ["]b"] = { function() require("astrocore.buffer").nav(vim.v.count1) end, desc = "Next buffer" },
-        ["[b"] = { function() require("astrocore.buffer").nav(-vim.v.count1) end, desc = "Previous buffer" },
+				-- navigate buffer tabs
+				["]b"] = {
+					function()
+						require("astrocore.buffer").nav(vim.v.count1)
+					end,
+					desc = "Next buffer",
+				},
+				["[b"] = {
+					function()
+						require("astrocore.buffer").nav(-vim.v.count1)
+					end,
+					desc = "Previous buffer",
+				},
 
-        -- mappings seen under group name "Buffer"
-        ["<Leader>bd"] = {
-          function()
-            require("astroui.status.heirline").buffer_picker(
-              function(bufnr) require("astrocore.buffer").close(bufnr) end
-            )
-          end,
-          desc = "Close buffer from tabline",
-        },
+				-- mappings seen under group name "Buffer"
+				["<Leader>bd"] = {
+					function()
+						require("astroui.status.heirline").buffer_picker(function(bufnr)
+							require("astrocore.buffer").close(bufnr)
+						end)
+					end,
+					desc = "Close buffer from tabline",
+				},
 
-        -- tables with just a `desc` key will be registered with which-key if it's installed
-        -- this is useful for naming menus
-        -- ["<Leader>b"] = { desc = "Buffers" },
+				-- tables with just a `desc` key will be registered with which-key if it's installed
+				-- this is useful for naming menus
+				-- ["<Leader>b"] = { desc = "Buffers" },
 
-        -- setting a mapping to false will disable it
-        -- ["<C-S>"] = false,
-      },
-    },
-  },
+				-- setting a mapping to false will disable it
+				-- ["<C-S>"] = false,
+				["<Leader>rp"] = {
+					function()
+						-- 1. 检查文件类型
+						if vim.bo.filetype ~= "python" then
+							vim.notify("当前文件不是 Python 脚本", vim.log.levels.WARN)
+							return
+						end
+
+						-- 2. 获取当前文件
+						local file = vim.api.nvim_buf_get_name(0)
+
+						if file == "" then
+							vim.notify("请先保存 Python 文件", vim.log.levels.WARN)
+							return
+						end
+
+						-- 3. 保存当前文件
+						vim.cmd("write")
+
+						-- 4. 从文件目录向上查找 .venv
+						local venv = vim.fs.find(".venv", {
+							path = vim.fs.dirname(file),
+							upward = true,
+							type = "directory",
+						})[1]
+
+						-- 5. 自动选择 Python 解释器
+						local python = "python3"
+
+						if venv then
+							local candidate = venv .. "/bin/python"
+
+							if vim.fn.executable(candidate) == 1 then
+								python = candidate
+							end
+						end
+
+						if vim.fn.executable(python) ~= 1 then
+							vim.notify("Python 解释器不可用", vim.log.levels.ERROR)
+							return
+						end
+
+						-- 6. 构造执行命令
+						local cmd = vim.fn.shellescape(python) .. " " .. vim.fn.shellescape(file)
+
+						-- 7. 底部打开终端
+						vim.cmd("botright 15split")
+						vim.cmd("terminal " .. cmd)
+
+						-- 8. 获取 Terminal Buffer
+						local term_buf = vim.api.nvim_get_current_buf()
+
+						-- 9. 按 q 关闭 Terminal Buffer
+						local function close_terminal()
+							if vim.api.nvim_buf_is_valid(term_buf) then
+								vim.api.nvim_buf_delete(term_buf, {
+									force = true,
+								})
+							end
+						end
+
+						vim.keymap.set("n", "q", close_terminal, {
+							buffer = term_buf,
+							silent = true,
+							desc = "Close Python Output",
+						})
+
+						-- 10. 进入终端模式，支持 input()
+						vim.cmd("startinsert")
+					end,
+					desc = "Run Python Script",
+				},
+			},
+		},
+	},
 }
