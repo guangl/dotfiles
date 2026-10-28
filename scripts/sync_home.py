@@ -51,6 +51,8 @@ MANIFEST = [
 EXCLUDE_DIRS = {"node_modules", "__pycache__", ".git", ".system", "reports"}
 EXCLUDE_NAMES = {".DS_Store"}
 EXCLUDE_PREFIXES = (".backup-",)
+# Editor swap files are state, not configuration.
+EXCLUDE_SUFFIXES = (".swp", ".swo", ".swx")
 
 # Credential-looking strings are replaced before anything lands in the repo.
 # The repository is public, so treat every captured file as world-readable.
@@ -153,7 +155,7 @@ def copy_path(rel: str, stats: dict[str, int]) -> None:
                 kept.append(d)
             dirs[:] = kept
             for name in files:
-                if name in EXCLUDE_NAMES:
+                if name in EXCLUDE_NAMES or name.endswith(EXCLUDE_SUFFIXES):
                     continue
                 file_path = root_path / name
                 child = file_path.relative_to(HOME)
