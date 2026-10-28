@@ -37,12 +37,12 @@ mode through the `private_` prefix (`home/dot_config/private_atuin/private_confi
 | Git | `dot_gitconfig`, `dot_config/git/ignore`, `dot_config/jgit/config`, `dot_config/gh/private_config.yml` | `~/.gitconfig`, `~/.config/{git,jgit,gh}` |
 | Containers / runtimes | `dot_docker/private_config.json`, `dot_rustup/settings.toml` | `~/.docker/config.json` (0600), `~/.rustup/settings.toml` |
 | Small tools | `dot_config/{chezmoi,mimocode}` | matching paths under `~/.config` |
-| Shared skills | `dot_agents/skills` | `~/.agents/skills` |
 | Packages | `Brewfile`, `packages.csv`, `install.sh`, `install.ps1` | package managers |
 | Windows | `Documents/PowerShell/Microsoft.PowerShell_profile.ps1` | PowerShell profile |
 
-Claude, DSH, SSH, CodeWhale, Codex, espanso, fish, and billion-context are
-no longer captured or managed. Their existing HOME directories are left intact.
+Claude, DSH, SSH, CodeWhale, Codex, shared agent skills (`~/.agents`),
+espanso, fish, and billion-context are no longer captured or managed. Their
+existing HOME directories are left intact.
 Repository documentation lives outside `home/` and is never installed into HOME.
 
 ## Secrets and exclusions

@@ -43,8 +43,6 @@ MANIFEST = [
     ".rustup/settings.toml",
     ".config/chezmoi/chezmoi.toml",
     ".config/mimocode/mimocode.jsonc",
-    # --- AI coding agents --------------------------------------------------
-    ".agents/skills",
 ]
 
 # Never copied even when they live inside a manifest directory.

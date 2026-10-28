@@ -21,6 +21,7 @@ LICENSE*
 .ssh
 .codewhale
 .codex
+.agents
 .config/espanso
 .config/fish
 .billion-context
