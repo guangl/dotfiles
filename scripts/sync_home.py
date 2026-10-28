@@ -121,10 +121,13 @@ def copy_file(src: Path, dest: Path) -> str:
             os.symlink(target, dest)
         return "symlink"
     if is_text(src) and src.stat().st_size < 2_000_000:
-        original = src.read_text(encoding="utf-8", errors="replace")
+        raw = src.read_bytes()
+        original = raw.decode("utf-8", errors="replace")
         cleaned = redact(original)
         if not DRY_RUN:
-            dest.write_text(cleaned, encoding="utf-8")
+            # Keep the original bytes unless redaction actually changed
+            # something, so CRLF line endings and encodings survive the copy.
+            dest.write_bytes(raw if cleaned == original else cleaned.encode("utf-8"))
         return "redacted" if cleaned != original else "copied"
     if not DRY_RUN:
         shutil.copy2(src, dest)
