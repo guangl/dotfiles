@@ -99,9 +99,10 @@ foreach ($app in $ScoopApps) {
 
 # Cross-platform CLI/app names (shared with the Brewfile) live in
 # packages.csv so the two package lists don't drift apart.
-$LocalCsv = Join-Path $PSScriptRoot "packages.csv"
-if ($PSScriptRoot -and (Test-Path $LocalCsv)) {
-  $CommonPackages = Import-Csv $LocalCsv
+# Invoke-Expression runs without a script directory.
+$LocalCsv = if ($PSScriptRoot) { Join-Path $PSScriptRoot "packages.csv" }
+if ($LocalCsv -and (Test-Path -LiteralPath $LocalCsv -PathType Leaf)) {
+  $CommonPackages = Import-Csv -LiteralPath $LocalCsv
 } else {
   $CsvUrl = "https://raw.githubusercontent.com/$Repo/main/packages.csv"
   Invoke-WithRetry -Description "download packages.csv" -Action {
