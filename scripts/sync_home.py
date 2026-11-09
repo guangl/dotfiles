@@ -110,12 +110,13 @@ def is_text(path: Path) -> bool:
 
 
 def copy_file(src: Path, dest: Path) -> str:
-    dest.parent.mkdir(parents=True, exist_ok=True)
+    if not DRY_RUN:
+        dest.parent.mkdir(parents=True, exist_ok=True)
     if src.is_symlink():
         target = os.readlink(src)
-        if dest.is_symlink() or dest.exists():
-            dest.unlink()
         if not DRY_RUN:
+            if dest.is_symlink() or dest.exists():
+                dest.unlink()
             os.symlink(target, dest)
         return "symlink"
     if is_text(src) and src.stat().st_size < 2_000_000:

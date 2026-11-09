@@ -1,10 +1,10 @@
 # dotfiles
 
-Everything that defines how my machines are set up: shell, prompt, terminal,
-editors, CLI tools, AI coding agents, and the macOS system preferences that are
-worth reproducing. Managed with [chezmoi](https://www.chezmoi.io/).
+Portable shell, terminal, editor and CLI settings, plus software installation
+lists for macOS and Windows. Managed with [chezmoi](https://www.chezmoi.io/).
 
-Snapshotted from a MacBook Air (macOS) in October 2026 and kept in sync with
+The macOS package inventory was refreshed from the MacBook Air on 2026-11-09.
+Managed files are synced with
 [`scripts/sync_home.py`](./scripts/sync_home.py).
 
 ## Layout
@@ -16,7 +16,7 @@ home/                        # everything that lands in $HOME
   .chezmoiignore             # platform-specific exclusions (Windows/macOS)
   dot_zshrc, dot_config/…    # chezmoi source names
 scripts/sync_home.py         # reproducible capture from a live machine
-Brewfile, packages.csv       # package lists
+Brewfile, packages.csv       # macOS inventory and Windows package mapping
 install.sh, install.ps1      # one-shot bootstrap
 ```
 
@@ -88,7 +88,7 @@ chezmoi apply
 Installs the package manager, every package, and applies the dotfiles in one go.
 
 macOS (installs Homebrew if missing, then `brew bundle install` from
-[`Brewfile`](./Brewfile) — CLI tools, casks, and VS Code extensions):
+[`Brewfile`](./Brewfile) — formulae, casks, VS Code extensions, and selected Cargo, uv and npm tools):
 
 ```sh
 curl -fsSL https://raw.githubusercontent.com/guangl/dotfiles/main/install.sh | bash
@@ -117,10 +117,29 @@ On first run, `chezmoi init` prompts for `hostname_role` and `email`.
 
 - [Homebrew](https://brew.sh/)
 - `zimfw` (`brew install zimfw`)
-- `eza`, `starship`, `atuin`, `zellij`, `espanso`, `ghostty`, `neovim`
+- `eza`, `starship`, `atuin`, `zellij`, `ghostty`, `neovim`
 
 ### Windows
 
 - [winget](https://learn.microsoft.com/windows/package-manager/winget/) or
   [scoop](https://scoop.sh/)
 - `eza`, `starship`, `atuin`, `zellij`, `espanso`, `neovim`
+
+## 配置取舍
+
+- **chezmoi 与显式清单**。同一份仓库可以按平台应用配置，采集脚本只读取明确列出的 HOME 路径。临时诊断脚本、账户状态和历史记录适合留在本机。Docker 和 Rustup 的已有配置会在本机文件缺失时保留，避免用一台机器的状态覆盖其他机器的配置。
+- **终端分层**。Zim 管理 zsh 模块，Starship 提供提示符，Atuin 管理历史，Ghostty 和 Zellij 分别负责终端界面和会话。Windows 的 PowerShell 可以复用 Starship、Atuin 和 Zellij。
+- **软件清单按平台维护**。`Brewfile` 以 MacBook Air 的当前安装记录为基线，方便重建开发环境。引导清单省略了带本机显式信任设置的 QLStephenSwift。`packages.csv` 的 Scoop 列驱动 Windows 安装，应用是否出现在当前 Mac 上不决定它是否应从 Windows 清单移除。
+
+## 配置报告
+
+在线报告列出配置用途、软件清单和对应的仓库文件。[查看配置报告](https://guangl.github.io/dotfiles/)
+
+推送到 `main` 后，GitHub Actions 会生成报告并发布到 GitHub Pages。
+也可以在 **Actions → Publish configuration report** 中手动运行。
+
+在本地生成报告：
+
+```sh
+python3 scripts/render_config_report.py /tmp/dotfiles-report/index.html
+```
