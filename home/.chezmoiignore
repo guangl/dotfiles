@@ -8,6 +8,7 @@
 .config/ghostty
 .config/fish
 .config/jgit
+.config/yazi
 .local
 {{- else }}
 Documents/PowerShell/Microsoft.PowerShell_profile.ps1

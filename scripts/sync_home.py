@@ -39,6 +39,7 @@ MANIFEST = [
     # --- editors -----------------------------------------------------------
     ".config/nvim",
     # --- tools -------------------------------------------------------------
+    ".config/yazi/yazi.toml",
     ".docker/config.json",
     ".rustup/settings.toml",
     ".config/chezmoi/chezmoi.toml",

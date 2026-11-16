@@ -81,6 +81,21 @@ if (( $+commands[zoxide] )); then
 fi
 # ====================================
 
+# Open Yazi and follow its last directory on exit.
+y() {
+  local cwd_file directory
+  cwd_file=$(mktemp) || return
+  {
+    command yazi --cwd-file="$cwd_file" "$@" || return
+    IFS= read -r -d '' directory < "$cwd_file" || true
+    if [[ -d "$directory" && "$directory" != "$PWD" ]]; then
+      builtin cd -- "$directory"
+    fi
+  } always {
+    command rm -f -- "$cwd_file"
+  }
+}
+
 # ======== Alias =====================
 alias rm='trash'
 alias ce='chezmoi edit --apply'

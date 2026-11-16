@@ -34,6 +34,7 @@ mode through the `private_` prefix (`home/dot_config/private_atuin/private_confi
 | Prompt / terminal | `dot_config/starship`, `dot_config/zellij`, `dot_config/ghostty` | `~/.config/{starship,zellij,ghostty}` |
 | Shell history | `dot_config/private_atuin/private_config.toml` | `~/.config/atuin/config.toml` (0600) |
 | Neovim | `dot_config/nvim` (AstroNvim) | `~/.config/nvim` |
+| Yazi | `dot_config/yazi/yazi.toml` | `~/.config/yazi/yazi.toml` |
 | Git | `dot_gitconfig`, `dot_config/git/ignore`, `dot_config/jgit/config`, `dot_config/gh/private_config.yml` | `~/.gitconfig`, `~/.config/{git,jgit,gh}` |
 | Containers / runtimes | `dot_docker/private_config.json`, `dot_rustup/settings.toml` | `~/.docker/config.json` (0600), `~/.rustup/settings.toml` |
 | Small tools | `dot_config/{chezmoi,mimocode}` | matching paths under `~/.config` |
@@ -108,8 +109,15 @@ On first run, `chezmoi init` prompts for `hostname_role` and `email`.
 
 - **macOS**: full setup — zsh + zim, ghostty, and the CLI toolchain.
 - **Windows** (native PowerShell, no WSL): starship, atuin, zellij and
-  the eza alias via the PowerShell profile. zsh/zim, ghostty, jgit and
-  `~/.local` are skipped by [`home/.chezmoiignore`](./home/.chezmoiignore).
+  the eza alias via the PowerShell profile. zsh/zim, ghostty, jgit, Yazi's
+  standalone configuration and `~/.local` are skipped by
+  [`home/.chezmoiignore`](./home/.chezmoiignore).
+
+## Yazi and Neovim on macOS
+
+- In zsh, run `y` to browse and press `q` to return to the shell in the last directory.
+- In standalone Yazi, `Enter` on a text file opens it in Neovim.
+- In Neovim, press `<Space>-` to reveal the current file or `<Space>fy` to start in the working directory. Press `Enter` on a file in the floating window to open it in the same Neovim session.
 
 ## Requirements
 
@@ -117,7 +125,7 @@ On first run, `chezmoi init` prompts for `hostname_role` and `email`.
 
 - [Homebrew](https://brew.sh/)
 - `zimfw` (`brew install zimfw`)
-- `eza`, `starship`, `atuin`, `zellij`, `ghostty`, `neovim`
+- `eza`, `starship`, `atuin`, `zellij`, `ghostty`, `neovim`, `yazi`
 
 ### Windows
 

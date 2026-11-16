@@ -25,8 +25,8 @@ SECTIONS = (
     ),
     (
         "编辑器",
-        "Neovim 以 AstroNvim 为基础。仓库保存插件配置和锁文件，便于在其他机器上复现插件组合。",
-        ("home/dot_config/nvim",),
+        "Neovim 以 AstroNvim 为基础。可在编辑器中用 Yazi 浮窗浏览文件，也可从独立的 Yazi 把文本文件交给 Neovim。",
+        ("home/dot_config/nvim", "home/dot_config/yazi/yazi.toml"),
     ),
     (
         "版本控制与运行时",
