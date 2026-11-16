@@ -9,5 +9,5 @@ return {
     { "<Leader>-", "<Cmd>Yazi<CR>", desc = "Yazi at current file" },
     { "<Leader>fy", "<Cmd>Yazi cwd<CR>", desc = "Yazi at working directory" },
   },
-  opts = {},
+  opts = { floating_window_scaling_factor = 0.92, yazi_floating_window_border = "rounded" },
 }

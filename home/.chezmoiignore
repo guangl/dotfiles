@@ -8,6 +8,9 @@
 .config/ghostty
 .config/fish
 .config/jgit
+.config/kitty
+.config/fastfetch
+.config/starship/kitty.toml
 .config/yazi
 .local
 {{- else }}

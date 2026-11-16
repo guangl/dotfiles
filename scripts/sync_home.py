@@ -28,8 +28,12 @@ MANIFEST = [
     ".zimrc",
     ".config/atuin/config.toml",
     ".config/starship/config.toml",
+    ".config/starship/kitty.toml",
     ".config/zellij/config.kdl",
     ".config/ghostty/config.ghostty",
+    ".config/kitty/alfred-terminal.applescript",
+    ".config/kitty/kitty.conf",
+    ".config/kitty/macos-launch-services-cmdline",
     ".local/share/zsh/site-functions/_dm",
     # --- git ---------------------------------------------------------------
     ".gitconfig",
@@ -39,6 +43,11 @@ MANIFEST = [
     # --- editors -----------------------------------------------------------
     ".config/nvim",
     # --- tools -------------------------------------------------------------
+    ".config/fastfetch/kitty.jsonc",
+    ".config/fastfetch/kitty-ghost.txt",
+    ".config/yazi/init.lua",
+    ".config/yazi/package.toml",
+    ".config/yazi/theme.toml",
     ".config/yazi/yazi.toml",
     ".docker/config.json",
     ".rustup/settings.toml",
@@ -68,7 +77,7 @@ TEXT_SUFFIXES = {
     "", ".sh", ".zsh", ".bash", ".fish", ".toml", ".yml", ".yaml", ".json",
     ".jsonc", ".kdl", ".conf", ".cfg", ".ini", ".lua", ".md", ".txt", ".py",
     ".js", ".ts", ".css", ".html", ".xml", ".plist", ".properties", ".env",
-    ".pub", ".ignore", ".gitconfig", ".vim", ".jsx", ".tsx", ".ps1",
+    ".pub", ".ignore", ".gitconfig", ".vim", ".jsx", ".tsx", ".ps1", ".applescript",
 }
 
 # Files that are 0600 on the machine. chezmoi only recreates that mode when a

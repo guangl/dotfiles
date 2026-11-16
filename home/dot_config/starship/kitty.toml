@@ -1,0 +1,54 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+palette = "mocha"
+
+format = """
+[](lavender)$username\
+[](fg:lavender bg:pink)$directory\
+[](fg:pink bg:surface)$git_branch$git_status$time[](surface)\
+$line_break$character"""
+right_format = "$cmd_duration"
+
+[palettes.mocha]
+base = "#1e1e2e"
+surface = "#45475a"
+text = "#cdd6f4"
+lavender = "#b4befe"
+pink = "#f5c2e7"
+yellow = "#f9e2af"
+red = "#f38ba8"
+
+[username]
+show_always = true
+style_user = "fg:base bg:lavender"
+style_root = "bold fg:base bg:lavender"
+format = "[  $user ]($style)"
+
+[directory]
+style = "bold fg:base bg:pink"
+format = "[ $path ]($style)"
+truncation_length = 3
+truncation_symbol = "…/"
+
+[git_branch]
+symbol = " "
+style = "fg:text bg:surface"
+format = "[ $symbol$branch]($style)"
+
+[git_status]
+style = "fg:yellow bg:surface"
+format = "([ $all_status$ahead_behind]($style))"
+
+[time]
+disabled = false
+time_format = "%H:%M"
+style = "fg:text bg:surface"
+format = "[  $time ]($style)"
+
+[character]
+success_symbol = "[❯](bold lavender)"
+error_symbol = "[❯](bold red)"
+
+[cmd_duration]
+min_time = 1500
+style = "yellow"
+format = "[󱎫 $duration]($style)"

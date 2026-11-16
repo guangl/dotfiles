@@ -8,6 +8,8 @@ brew "bison"
 brew "bottom"
 # Incredibly fast JavaScript runtime, bundler, test runner, and package manager
 brew "bun"
+# Render image previews in terminals without graphics protocols
+brew "chafa"
 # Manage your dotfiles across multiple diverse machines, securely
 brew "chezmoi"
 # Cross-platform make
@@ -162,9 +164,12 @@ cask "crossover"
 cask "devonthink"
 cask "font-fira-code"
 cask "font-fira-code-nerd-font"
+cask "font-jetbrains-mono-nerd-font"
 cask "font-lxgw-wenkai"
 # Terminal emulator that uses platform-native UI and GPU acceleration
 cask "ghostty"
+# GPU-accelerated terminal emulator
+cask "kitty"
 # Web browser
 cask "google-chrome"
 # Free and open-source media player

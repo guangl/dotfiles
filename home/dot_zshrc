@@ -28,9 +28,10 @@ eval "$(atuin init zsh)"
 #
 # ======== Zellji ====================
 # Auto-start only in an interactive terminal, never during `zsh -c` probes.
-# Reuse a fixed session so closing/reopening terminals cannot accumulate sessions.
+# Kitty uses its own windows for native graphics previews.
+# Reuse a fixed session when Zellij auto-starts.
 if [[ -o interactive && -z "${ZSH_EXECUTION_STRING:-}" && -t 0 && -t 1 \
-      && -z "${ZELLIJ:-}" && "${TERM:-dumb}" != dumb ]] \
+      && -z "${ZELLIJ:-}" && -z "${KITTY_WINDOW_ID:-}" && "${TERM:-dumb}" != dumb ]] \
       && (( $+commands[zellij] )); then
   zellij attach --create main
 fi
@@ -41,8 +42,8 @@ export ESPANSO_CONFIG_DIR="$HOME/.config/espanso"
 # ====================================
 #
 # ======== Starship ==================
+export STARSHIP_CONFIG="${STARSHIP_CONFIG:-$HOME/.config/starship/config.toml}"
 eval "$(starship init zsh)"
-export STARSHIP_CONFIG="$HOME/.config/starship/config.toml"
 # ====================================
 #
 # ======== DNS Pick ==================

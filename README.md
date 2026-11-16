@@ -32,9 +32,10 @@ mode through the `private_` prefix (`home/dot_config/private_atuin/private_confi
 | --- | --- | --- |
 | Shell | `dot_zshrc`, `dot_zprofile`, `dot_profile`, `dot_zimrc`, `dot_local/share/zsh/site-functions/_dm` | `~/.zshrc`, `~/.zprofile`, `~/.profile`, `~/.zimrc`, `~/.local/share/zsh/site-functions/_dm` |
 | Prompt / terminal | `dot_config/starship`, `dot_config/zellij`, `dot_config/ghostty` | `~/.config/{starship,zellij,ghostty}` |
+| Kitty trial | `dot_config/kitty`, `dot_config/starship/kitty.toml`, `dot_config/fastfetch` | matching paths under `~/.config` |
 | Shell history | `dot_config/private_atuin/private_config.toml` | `~/.config/atuin/config.toml` (0600) |
 | Neovim | `dot_config/nvim` (AstroNvim) | `~/.config/nvim` |
-| Yazi | `dot_config/yazi/yazi.toml` | `~/.config/yazi/yazi.toml` |
+| Yazi | `dot_config/yazi/{yazi.toml,theme.toml,init.lua,package.toml}` | `~/.config/yazi/` |
 | Git | `dot_gitconfig`, `dot_config/git/ignore`, `dot_config/jgit/config`, `dot_config/gh/private_config.yml` | `~/.gitconfig`, `~/.config/{git,jgit,gh}` |
 | Containers / runtimes | `dot_docker/private_config.json`, `dot_rustup/settings.toml` | `~/.docker/config.json` (0600), `~/.rustup/settings.toml` |
 | Small tools | `dot_config/{chezmoi,mimocode}` | matching paths under `~/.config` |
@@ -115,9 +116,25 @@ On first run, `chezmoi init` prompts for `hostname_role` and `email`.
 
 ## Yazi and Neovim on macOS
 
+- Ghostty, Zellij, Starship and Neovim share the Catppuccin Mocha palette. Yazi uses lavender borders, yellow focus and a modification-time column.
+- After applying with chezmoi, run `ya pkg install` to install Yazi's pinned rounded-border plugin. The macOS bootstrap runs this automatically.
+- Run Yazi in Kitty or directly in Ghostty for native image previews. Chafa provides character-based previews in terminals without graphics support. [Yazi image preview guide](https://yazi-rs.github.io/docs/image-preview/)
 - In zsh, run `y` to browse and press `q` to return to the shell in the last directory.
 - In standalone Yazi, `Enter` on a text file opens it in Neovim.
 - In Neovim, press `<Space>-` to reveal the current file or `<Space>fy` to start in the working directory. Press `Enter` on a file in the floating window to open it in the same Neovim session.
+- The Neovim home screen shows shortcuts, recent files and projects. `<Space>e` toggles the searchable Explorer sidebar, `<Space>o` switches focus, and `:` opens the floating command line. Opening a directory with `nvim <directory>` starts with Explorer visible.
+
+## Kitty on macOS
+
+Open Kitty from Applications to start maximized with JetBrains Mono Nerd Font
+and its own Starship prompt. Kitty quits when its last window closes. It starts
+directly in zsh, so running `y` there uses Kitty's native graphics
+protocol. To display the system panel on demand, run
+`fastfetch --config ~/.config/fastfetch/kitty.jsonc`.
+
+For Alfred's terminal commands and Open Terminal Here action, paste
+`~/.config/kitty/alfred-terminal.applescript` into the Custom script field under
+Features → Terminal / Shell.
 
 ## Requirements
 

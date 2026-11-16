@@ -1,0 +1,31 @@
+[mgr]
+cwd = { fg = "#b4befe", bold = true }
+border_style = { fg = "#9399b2" }
+
+[tabs]
+active = { fg = "#1e1e2e", bg = "#b4befe", bold = true }
+inactive = { fg = "#bac2de", bg = "#313244" }
+
+[indicator]
+parent = { fg = "#1e1e2e", bg = "#b4befe" }
+current = { fg = "#1e1e2e", bg = "#f9e2af", bold = true }
+preview = { fg = "#b4befe", underline = true }
+padding = { open = "▐", close = "▌" }
+
+[mode]
+normal_main = { fg = "#1e1e2e", bg = "#b4befe", bold = true }
+normal_alt = { fg = "#cdd6f4", bg = "#313244" }
+select_main = { fg = "#1e1e2e", bg = "#a6e3a1", bold = true }
+select_alt = { fg = "#cdd6f4", bg = "#313244" }
+unset_main = { fg = "#1e1e2e", bg = "#f38ba8", bold = true }
+unset_alt = { fg = "#cdd6f4", bg = "#313244" }
+
+[filetype]
+rules = [
+  { url = "*", is = "orphan", fg = "#f38ba8" },
+  { url = "*/", fg = "#b4befe" },
+  { mime = "image/*", fg = "#94e2d5" },
+  { mime = "{audio,video}/*", fg = "#f5c2e7" },
+  { mime = "application/pdf", fg = "#a6e3a1" },
+  { mime = "inode/empty", fg = "#9399b2" },
+]

@@ -1,7 +1,28 @@
 [mgr]
 show_hidden = true
+linemode = "mtime"
 
 [opener]
 edit = [
   { run = 'nvim -- %s', desc = 'Neovim', block = true, for = 'unix' },
 ]
+
+[[plugin.prepend_previewers]]
+url = "*.{csv,tsv,json,parquet,xlsx}"
+run = '''
+piper -- case "$1" in
+  *.[jJ][sS][oO][nN]) reader=read_json_auto ;;
+  *.[pP][aA][rR][qQ][uU][eE][tT]) reader=read_parquet ;;
+  *.[xX][lL][sS][xX]) reader=read_xlsx ;;
+  *) reader=read_csv ;;
+esac
+DUCKDB_AGENT_MODE=0 YAZI_DUCKDB_FILE="$1" duckdb -batch -init /dev/null -cmd ".mode duckbox" -cmd ".maxwidth $w" -cmd ".maxrows 500" -c "FROM $reader(getenv('YAZI_DUCKDB_FILE')) LIMIT 500"
+'''
+
+[[plugin.prepend_previewers]]
+url = "*.duckdb"
+run = 'piper -- DUCKDB_AGENT_MODE=0 duckdb -batch -init /dev/null -readonly -cmd ".mode duckbox" -cmd ".maxwidth $w" -c "SELECT table_schema AS schema, table_name AS name FROM information_schema.tables ORDER BY 1, 2 LIMIT 500" "$1"'
+
+[[plugin.prepend_previewers]]
+url = "*.docx"
+run = 'piper -- pandoc --from=docx --to=plain --wrap=auto --columns="$w" -- "$1"'

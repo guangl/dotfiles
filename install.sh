@@ -43,4 +43,7 @@ fi
 echo "==> Applying dotfiles from ${REPO}"
 retry "chezmoi init --apply" chezmoi init --apply "${REPO}"
 
+echo "==> Installing Yazi plugins"
+retry "ya pkg install" ya pkg install
+
 echo "==> Done. Restart your terminal to pick up the new shell config."
