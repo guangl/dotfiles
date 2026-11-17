@@ -124,6 +124,23 @@ On first run, `chezmoi init` prompts for `hostname_role` and `email`.
 - In Neovim, press `<Space>-` to reveal the current file or `<Space>fy` to start in the working directory. Press `Enter` on a file in the floating window to open it in the same Neovim session.
 - The Neovim home screen shows shortcuts, recent files and projects. `<Space>e` toggles the searchable Explorer sidebar, `<Space>o` switches focus, and `:` opens the floating command line. Opening a directory with `nvim <directory>` starts with Explorer visible.
 
+### Codex in Neovim
+
+Sidekick enables these shortcuts when `codex` is on `PATH`. The right-hand panel uses 40% of Neovim's width.
+
+| Where | Shortcut | Action |
+| --- | --- | --- |
+| Normal mode | `<Space>aa` | Open or hide the Codex panel. |
+| Normal mode | `<Space>af` | Add a reference to the current file to the prompt. |
+| Normal mode | `<Space>aF` (uppercase `F`) | Add the entire function under the cursor to the prompt. |
+| Visual mode | `<Space>av` | Add the selected code to the prompt. |
+| Codex panel | `Ctrl+z` | Return to the editor with the panel still visible. |
+| Codex panel | `Ctrl+.` | Hide the panel and keep the Codex session running. |
+
+After adding code, type your question in the Codex input box and press `Enter` to submit. If `Ctrl+.` is unavailable in your terminal, press `Ctrl+q` and then `q` to hide the panel.
+
+For more AstroNvim shortcuts, see [《Neovim 常用快捷键》](https://blog.guangluo.top/2026/11/17/neovim-shortcuts/).
+
 ## Kitty on macOS
 
 Open Kitty from Applications to start maximized with JetBrains Mono Nerd Font
